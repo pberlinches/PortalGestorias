@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<parameters>
+  <parameter name="CRM_CONNECTION_STRING">
+    <parameterEntry kind="XmlFile" scope="\\Web\.config$" match="/configuration/connectionStrings/add[@name='CrmConnection']/@connectionString" />
+  </parameter>
+  <parameter name="DCOM_CONNECTION_STRING">
+    <parameterEntry kind="XmlFile" scope="\\Web\.config$" match="/configuration/connectionStrings/add[@name='DcomConnection']/@connectionString" />
+  </parameter>
+  <parameter name="DCOM_CRM_APPLICATION_ID">
+    <parameterEntry kind="XmlFile" scope="\\Web\.config$" match="/configuration/appSettings/add[@key='DComApplicationId']/@value" />
+  </parameter>
+  <parameter name="AUTH_TYPE">
+    <parameterEntry kind="XmlFile" scope="\\Web\.config$" match="/configuration/appSettings/add[@key='AuthenticationType']/@value" />
+  </parameter>
+  <parameter name="DOMAIN_NAME">
+    <parameterEntry kind="XmlFile" scope="\\Web\.config$" match="/configuration/appSettings/add[@key='DomainName']/@value" />
+  </parameter>
+  <parameter name="DOMAIN_USER">
+    <parameterEntry kind="XmlFile" scope="\\Web\.config$" match="/configuration/appSettings/add[@key='DomainUser']/@value" />
+  </parameter>
+  <parameter name="DOMAIN_ENCRYPTED_PASSWORD">
+    <parameterEntry kind="XmlFile" scope="\\Web\.config$" match="/configuration/appSettings/add[@key='DomainPassword']/@value" />
+  </parameter>
+  <parameter name="URL_AUTHORITY_ENDPOINT">
+    <parameterEntry kind="XmlFile" scope="\\Web\.config$" match="/configuration/appSettings/add[@key='Authentication:Authority']/@value" />
+  </parameter>
+  <parameter name="URL_WEB_APPLICATION">
+    <parameterEntry kind="XmlFile" scope="\\Web\.config$" match="/configuration/appSettings/add[@key='Authentication:ThisWebAppUrl']/@value" />
+  </parameter>
+  <parameter name="LOG_OUTPUT_PATH">
+    <parameterEntry kind="XmlFile" scope="\\Web\.config$" match="/configuration/appSettings/add[@key='serilog:write-to:RollingFile.pathFormat']/@value" />
+  </parameter>
+  <parameter name="LOG_MINIMUM_LEVEL">
+    <parameterEntry kind="XmlFile" scope="\\Web\.config$" match="/configuration/appSettings/add[@key='serilog:minimum-level']/@value" />
+  </parameter>
+  <parameter name="IDSERV_LOCAL_PATH">
+    <parameterEntry kind="XmlFile" scope="\\Web\.config$" match="/configuration/appSettings/add[@key='IdSrv:Local:Path']/@value" />
+  </parameter>
+  <parameter name="IDSERV_LOCAL_PASS">
+    <parameterEntry kind="XmlFile" scope="\\Web\.config$" match="/configuration/appSettings/add[@key='IdSrv:Local:Password']/@value" />
+  </parameter>
+  <parameter name="IDSERV_STORE_NAME">
+    <parameterEntry kind="XmlFile" scope="\\Web\.config$" match="/configuration/appSettings/add[@key='IdSrv:Store:StoreName']/@value" />
+  </parameter>
+  <parameter name="IDSERV_STORE_LOCATION">
+    <parameterEntry kind="XmlFile" scope="\\Web\.config$" match="/configuration/appSettings/add[@key='IdSrv:Store:StoreLocation']/@value" />
+  </parameter>
+  <parameter name="IDSERV_STORE_THUMBPRINT">
+    <parameterEntry kind="XmlFile" scope="\\Web\.config$" match="/configuration/appSettings/add[@key='IdSrv:Store:Thumbprint']/@value" />
+  </parameter>
+  <parameter name="IDSERV_CERT_TYPE">
+    <parameterEntry kind="XmlFile" scope="\\Web\.config$" match="/configuration/appSettings/add[@key='IdSrv:Type']/@value" />
+  </parameter>
+</parameters>

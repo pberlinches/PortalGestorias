@@ -1,0 +1,97 @@
+﻿@model  PortalGestorias.Domain.Models.BusquedaProducto
+
+@{
+
+    var action = ViewContext.RouteData.Values["action"].ToString();
+    var style = string.Empty;
+    if (action.Equals("search", StringComparison.InvariantCultureIgnoreCase))
+    {
+        style = "extended";
+    }
+    dynamic htmlAttributes = new { @class = "form-control" };
+}
+@using (Html.BeginForm("Search", "Productos", FormMethod.Get))
+{
+    <fieldset>
+        <div class="extended panel-collapse collapse out " id="filtros">
+            <div class="form-horizontal">
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Estado, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.DropDownList("IdEstado", (SelectList)ViewData["Estado"], (Object)htmlAttributes)
+                    </div>
+                    @Html.LabelFor(m => m.NumeroPedido, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.NumeroPedido, new { htmlAttributes })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.TipoModelo, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.DropDownList("IdTipoModelo", (SelectList)ViewData["TipoModelo"], (Object)htmlAttributes)
+                    </div>
+                    @Html.LabelFor(m => m.Marca, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.DropDownList("IdMarca", (SelectList)ViewData["Marca"], (Object)htmlAttributes)
+                    </div>
+                </div>
+
+                <div class="form-group">
+
+                    @Html.LabelFor(m => m.Modelo, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.DropDownList("IdModelo", (SelectList)ViewData["Modelo"], (Object)htmlAttributes)
+                    </div>
+                    @Html.LabelFor(m => m.Almacen, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.DropDownList("IdAlmacen", (SelectList)ViewData["Almacen"], (Object)htmlAttributes)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Ubicacion, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.DropDownList("IdUbicacion", (SelectList)ViewData["Ubicacion"], (Object)htmlAttributes)
+                    </div>
+                    @Html.LabelFor(m => m.StockRoom, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.DropDownList("IdStockRoom", (SelectList)ViewData["StockRoom"], (Object)htmlAttributes)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.CodigoBarras, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.CodigoBarras, new { htmlAttributes })
+                    </div>
+                    @Html.LabelFor(m => m.NumeroSerie, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.NumeroSerie, new { htmlAttributes })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.FechaEntradaDesde, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-2">
+                        @Html.EditorFor(model => model.FechaEntradaDesde, new { htmlAttributes })
+                    </div>
+                    @Html.LabelFor(m => m.FechaEntradaHasta, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-2">
+                        @Html.EditorFor(model => model.FechaEntradaHasta, new { htmlAttributes })
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Buscar" name="submitButton" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    </fieldset>
+}
+
+

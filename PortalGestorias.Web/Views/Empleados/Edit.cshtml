@@ -1,0 +1,183 @@
+﻿@using System.Security.Claims
+@using PortalGestorias.Web.Controllers
+@using PortalGestorias.Web.Security
+
+
+@model PortalGestorias.Domain.Entities.Empleado
+
+@{
+    ViewBag.Title = "John Deere - Sistema de Inventario ::: Usuario";
+    <style type="text/css">
+        label {
+            text-align: left !important;
+        }
+    </style>
+
+    var title = "Editar";
+    var action = "Edit";
+
+    if (Model.Id <= 0)
+    {
+        title = "Crear";
+        action = "Create";
+    }
+
+    var viewOnly = ViewBag.ViewOnly != null && ViewBag.ViewOnly;
+    ViewBag.Nombre = Model.NombreCompleto != "," ? Model.NombreCompleto : "CREAR USUARIO";
+    dynamic htmlAttributes = new { @class = "form-control" };
+    dynamic htmlAttributesCheckBox = new { @class = "checkbox" };
+    dynamic htmlAttributesParentLO = new { @class = "form-control", data_val = "true", data_val_required = $"El campo Login es obligatorio." };
+    dynamic htmlAttributesLogin = new { @class = "form-control" ,disabled = "disabled" };
+
+    if (viewOnly)
+    {
+        htmlAttributes = new { @class = "form-control ", disabled = "disabled" };
+        htmlAttributesCheckBox  = new { @class = "checkbox ", disabled = "disabled" };
+        htmlAttributesParentLO = new { @class = "form-control", disabled = "disabled", data_val = "true", data_val_required = $"El campo Login es obligatorio." };
+    }
+    var user = User as ClaimsPrincipal;
+}
+
+@using (Html.BeginForm(action))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+
+        <div class="col-md-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb custom-breadcrumb">
+                    <li class="breadcrumb-item titulo1">@Html.ActionLink("HOME", "Index", "Home")</li>
+                    <li class="breadcrumb-item titulo1">@Html.ActionLink("USUARIOS", "Index", "Empleados")</li>
+                    <li class="breadcrumb-item titulo1 active">@ViewBag.Nombre.ToUpper()</li>
+                </ol>
+            </nav>
+        </div>
+
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="titulo2 col-md-12">Datos Generales</div>
+
+        <div class="form-group">
+            @Html.Label("Usuario", htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-1" })<span class="mandatory">*</span>
+            <div class="col-md-3">
+                @if (Model.Id > 0)
+                {
+                    @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "form-control", @readonly= "readonly" } })
+                }
+                else
+                {
+                    @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "form-control" } })
+                }
+                @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-1" })<span class="mandatory">*</span>
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Password, new { htmlAttributes, value = "" })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-1" })<span class="mandatory">*</span>
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Nombre, new { htmlAttributes, value = "" })
+                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Apellidos, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-1" })<span class="mandatory">*</span>
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Apellidos, new { htmlAttributes, value = "" })
+                @Html.ValidationMessageFor(model => model.Apellidos, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-1" })<span class="mandatory">*</span>
+            <div class="col-md-3">
+                @if (Model.Id > 0)
+                {
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @readonly="readonly"} })
+                }
+                else
+                {
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes })
+                }
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="titulo2 col-md-12">Permisos</div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Administrador, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Administrador, new { htmlAttributes })
+                @Html.ValidationMessageFor(model => model.Administrador, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Modificacion, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Modificacion, new { htmlAttributes })
+                @Html.ValidationMessageFor(model => model.Modificacion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Consulta, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Consulta, new { htmlAttributes })
+                @Html.ValidationMessageFor(model => model.Consulta, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @Html.ActionLink("Volver al listado", "Index", null, new { @class = "btn btn-default" })
+                @if (viewOnly && Model.Activo && user.ResourceAccessValidation(DataOperation.Update, Controllers.Empleados))
+                {
+                    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }, new { @class = "btn btn-jd-new" })
+                }
+                @if (!viewOnly)
+                {
+                    <input type="submit" value="Guardar" class="btn btn-primary" />
+                }
+            </div>
+        </div>
+    </div>
+        }
+        <div>
+            @if (viewOnly && !Model.Activo && user.ResourceAccessValidation(DataOperation.Delete, Controllers.Empleados))
+            {
+                using (Html.BeginForm("Activate", Controllers.Empleados, new { id = Model.Id }))
+                {
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                       
+                            @Html.AntiForgeryToken()
+                            <input type="submit" value="Activar" class="btn btn-default" />
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+            <script type="text/javascript">
+                $(function () {
+                    $('input[type="submit"].btn').on('dblclick',
+                        function (event) {
+                            event.preventDefault();
+                        });
+                });
+            </script>
+        }

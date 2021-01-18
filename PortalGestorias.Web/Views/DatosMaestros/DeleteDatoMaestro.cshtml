@@ -1,0 +1,68 @@
+﻿@model PortalGestorias.Domain.Entities.DatoMaestro
+
+@{
+    ViewBag.Title = "Dar de Baja Dato Maestro";
+}
+
+<h2>Dar de Baja</h2>
+
+<h3>¿Está seguro que desea confirmar la acción de baja?</h3>
+<div>
+    <h3>Dato Maestro</h3>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Grupo.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Grupo.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Value)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Value)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Metadata)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Metadata)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaMod)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaMod)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UsuMod)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UsuMod)
+        </dd>
+
+    </dl>
+
+    @Html.ActionLink("Volver a la lista", "Index") |
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            @if (Model.Activo)
+            {
+                <input type="submit" value="Dar de Baja" class="btn btn-default" />
+            }
+        </div>
+    }
+</div>

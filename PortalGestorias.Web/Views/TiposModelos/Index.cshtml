@@ -1,0 +1,70 @@
+﻿@using System.Security.Claims
+@using PortalGestorias.Domain.Entities
+@using PortalGestorias.Domain.Models
+@using PortalGestorias.Web.Controllers
+@using PortalGestorias.Web.Security
+
+@model IEnumerable<TipoModelo>
+@{
+    ViewBag.Title = "John Deere - Sistema de Inventario ::: Tipos de Modelo";
+    var user = User as ClaimsPrincipal;
+    var grid = new WebGrid(rowsPerPage: (int)ViewBag.RowsPerPage, canSort: false);
+    grid.Bind(Model, autoSortAndPage: false, rowCount: (int)ViewBag.SearchCount);
+    var columns = new List<WebGridColumn>
+{
+grid.Column("", "Tipo de Modelo",@<text>@Html.ActionLink(((string)item.Nombre == null ||(string)item.Nombre == "" ? " " : (string)item.Nombre ),"Details" , "TiposModelos", new {id = item.Id}, null)</text>),
+        grid.Column("", "Eliminar", @<text>@( item.Activo ? Html.ActionLinkAuthorize(" ", "Delete", user.GetAuthContext(DataOperation.Delete, Controllers.TiposModelos), new { id = item.Id }, new { @class = "fa fa-trash",  @style="color:red" , aria_hidden = "true" }) : Html.Raw("Baja"))</text>, "jd-eliminar"),
+            };
+}
+
+
+
+<div class="col-md-8">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb custom-breadcrumb">
+            <li class="breadcrumb-item titulo1">@Html.ActionLink("SISTEMAS", "Index", "Home")</li>
+            <li class="breadcrumb-item titulo1 active">MANTENIMIENTO TIPOS DE MODELO</li>
+        </ol>
+    </nav>
+</div>
+
+
+<div style="clear:both"></div><div style='text-align:right'>
+    <button type="button" class="btn btn-default rai " style="margin-left:3px" data-toggle="collapse" data-target="#filtros">Mostrar/Ocultar Filtros</button>
+    @Html.ActionLinkAuthorize("Nuevo Tipo de Modelo", "Create", user.GetAuthContext(DataOperation.Create, Controllers.TiposModelos), null, new { @class = "btn btn-jd-new" })
+</div>
+
+<div id="buscador">
+    <p>@Html.Partial("_Search", (BusquedaTipoModelo)ViewBag.SearchEntity ?? new BusquedaTipoModelo() { Activo = true })</p>
+</div>
+<div style="text-align: right">
+    <div class="text-danger"><p>@ViewBag.Message</p></div>
+    <p>
+        Mostrando   <strong>@Html.Raw(ViewBag.SearchCount)</strong> de <strong> @Html.Raw(ViewBag.TotalRowCount) </strong> registros&nbsp;
+    </p>
+</div>
+
+
+
+<div id="listado">
+    @grid.GetHtml(tableStyle: "table table-striped jd_webgrid-table", headerStyle: "jd_webgrid-header", columns: columns)
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+
+        $(function () {
+            $('input[type="submit"].btn').on('dblclick',
+                function (event) {
+                    event.preventDefault();
+                });
+        });
+
+        $("#Buscar").click(function () {
+            $("input[type='hidden'][name='Activo]").remove();
+        });
+
+    </script>
+}

@@ -1,0 +1,125 @@
+﻿@using System.Security.Claims
+@using PortalGestorias.Domain.Entities
+@using PortalGestorias.Domain.Models
+@using PortalGestorias.Web.Controllers
+@using PortalGestorias.Web.Security
+
+@model  List<SalidaProducto>
+
+@{
+    var user = User as ClaimsPrincipal;
+    var grid = new WebGrid(columnNames: null, rowsPerPage: (int)ViewBag.SalidaRowsPerPage, canSort: false);
+    grid.Bind(Model, autoSortAndPage: false, rowCount: (int)ViewBag.SalidaTotalRowCount);
+}
+
+@using (Html.BeginForm("Salida", "Productos", FormMethod.Post, new { @id = "salidaForm" }))
+{
+    @Html.AntiForgeryToken()
+
+
+        <div class="form-group" style='text-align:right'>
+            <input type="submit" value="Confirmar Salida" id="Confirmar" name="Confirmar" class="btn btn-danger" />
+            @Html.ActionLink("Volver al listado", "Index", null, new { @class = "btn btn-default" })
+
+        </div>
+
+
+        <table class="table" id="tableSalida">
+            <thead>
+                <tr class="jd_webgrid-header">
+                    <th>Índice</th>
+                    <th style="visibility:hidden !important; width:0px !important; display:none !important"></th>
+                    <th>Almacén</th>
+                    <th>Tipo</th>
+                    <th>Marca</th>
+                    <th>Modelo</th>
+                    <th>StockRoom</th>
+                    <th>Ubicación</th>
+                    <th>Destinatario</th>
+                    <th>Código de Barras</th>
+                    <th>Nº de Serie</th>
+                    <th style="visibility:hidden !important; width:0px !important; display:none !important"></th>
+                    <th>Eliminar</th>
+                </tr>
+                </thead>
+            <tbody>
+
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                <tr>
+                    <td>
+                        @Html.Label("", (i + 1).ToString())
+                    </td>
+                    <td style="visibility:collapse !important; width:0px !important; display:none !important">
+                        @Html.TextBox("productos[" + @i + "].NumeroPedido",
+      Model[i].NumeroPedido, new { @readonly = "readonly", @style = "display:none" })
+                    </td>
+
+                    <td>
+                        @Html.Label("productos[" + @i + "].Almacen.Nombre", Model[i].Almacen.Nombre)
+                        @Html.TextBox("productos[" + @i + "].Almacen.Nombre",
+      Model[i].Almacen.Nombre, new { @readonly = "readonly", @style = "display:none" })
+                    </td>
+
+                    <td>
+                        @Html.Label("productos[" + @i + "].Modelo.TipoModelo?.Nombre", Model[i].Modelo.TipoModelo?.Nombre)
+                        @Html.TextBox("productos[" + @i + "].Modelo.TipoModelo?.Nombre",
+      Model[i].Modelo.TipoModelo?.Nombre, new { @readonly = "readonly", @style = "display:none" })
+                    </td>
+
+                    <td>
+                        @Html.Label("productos[" + @i + "].Marca.Nombre", Model[i].Marca.Nombre)
+                        @Html.TextBox("productos[" + @i + "].Marca.Nombre",
+      Model[i].Marca.Nombre, new { @readonly = "readonly", @style = "display:none" })
+                    </td>
+
+                    <td>
+                        @Html.Label("productos[" + @i + "].Modelo.Nombre", Model[i].Modelo.Nombre)
+                        @Html.TextBox("productos[" + @i + "].Modelo.Nombre",
+      Model[i].Modelo.Nombre, new { @readonly = "readonly", @style = "display:none" })
+                    </td>
+
+                    <td>
+                        @Html.Label("productos[" + @i + "].StockRoom.Codigo", Model[i].StockRoom.Codigo)
+                        @Html.TextBox("productos[" + @i + "].StockRoom.Codigo",
+      Model[i].StockRoom.Codigo, new { @readonly = "readonly", @style = "display:none" })
+                    </td>
+
+                    <td>
+                        @Html.Label("productos[" + @i + "].Ubicacion.Nombre", Model[i].Ubicacion.Nombre)
+                        @Html.TextBox("productos[" + @i + "].Ubicacion.Nombre",
+      Model[i].Ubicacion.Nombre, new { @readonly = "readonly", @style = "display:none" })
+                    </td>
+
+                    <td>
+                        @Html.Label("productos[" + @i + "].Destinatario", Model[i].Destinatario ?? "")
+                        @Html.TextBox("productos[" + @i + "].Destinatario",
+      Model[i].Destinatario, new { @readonly = "readonly", @style = "display:none" })
+                    </td>
+
+                    <td>
+                        @Html.Label("productos[" + @i + "].CodigoBarras", Model[i].CodigoBarras)
+                        @Html.TextBox("productos[" + @i + "].CodigoBarras",
+      Model[i].CodigoBarras, new { @readonly = "readonly", @style = "display:none" })
+                    </td>
+
+                    <td>
+                        @Html.Label("productos[" + @i + "].NumeroSerie", Model[i].NumeroSerie)
+                        @Html.TextBox("productos[" + @i + "].NumeroSerie",
+      Model[i].NumeroSerie, new { @readonly = "readonly", @style = "display:none" })
+                    </td>
+
+                    <td style="visibility:collapse !important; width:0px !important; display:none !important">
+                        @Html.TextBox("productos[" + @i + "].IdProducto",
+      Model[i].IdProducto, new { @readonly = "readonly", @style = "display:none" })
+                    </td>
+
+                    <td>
+                        @Html.ActionLinkAuthorize(" ", "", user.GetAuthContext(DataOperation.Update, Controllers.Productos), null, new { @class = "fa fa-trash", @style = "color:red", aria_hidden = "true", onclick = "return deleteRow(" + i + ") ;" })
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+
+}

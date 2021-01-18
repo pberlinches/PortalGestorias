@@ -1,0 +1,100 @@
+﻿@using System.Security.Claims
+@using PortalGestorias.Web.Controllers
+@using PortalGestorias.Web.Security
+@model PortalGestorias.Domain.Entities.DatoMaestro
+
+@{
+    var title = "Editar";
+    var action = "Edit";
+
+    if (Model.IdCode <= 0)
+    {
+        title = "Crear";
+        action = "CreateGrupo";
+    }
+
+    dynamic htmlAttributes = new { @class = "form-control" };
+    var viewOnly = ViewBag.ViewOnly != null && ViewBag.ViewOnly;
+    if (viewOnly)
+    {
+        htmlAttributes = new { @class = "form-control", disabled = "disabled" };
+    }
+
+    var user = User as ClaimsPrincipal;
+    ViewBag.Title = $"{title} Grupo de Datos Maestros";
+}
+
+
+@using (Html.BeginForm(action))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h3>DatoMaestro</h3>
+        <hr />
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.IdCode)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IdGrupo, "Grupo", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("IdGrupo", null, (object)htmlAttributes)
+                @Html.ValidationMessageFor(model => model.IdGrupo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.Value, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Value, new { htmlAttributes })
+                @Html.ValidationMessageFor(model => model.Value, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Metadata, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Metadata, (object)htmlAttributes)
+                @Html.ValidationMessageFor(model => model.Metadata, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+    @if (!viewOnly)
+    {
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Guardar" class="btn btn-default"/>
+            </div>
+        </div>
+    }
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Volver al listado", "Index", null, new { @class = "btn btn-default" })
+    @if (viewOnly && Model.Activo && user.ResourceAccessValidation(DataOperation.Update, Controllers.Maestros))
+    {
+        @Html.ActionLink("Editar", "Edit", new {idCode = Model.IdCode, idGrupo = Model.IdGrupo}, new { @class = "btn btn-primary" })
+    }
+    @if (viewOnly && !Model.Activo && user.ResourceAccessValidation(DataOperation.Delete, Controllers.Maestros))
+    {
+        @Html.Raw(" | ")
+        using (Html.BeginForm("ActivateDatoMaestro", "DatosMaestros", new { idCode = Model.IdCode, idGrupo = Model.IdGrupo }))
+        {
+            @Html.AntiForgeryToken()
+            <input type="submit" value="Activar" class="btn btn-default" />
+        }
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(function () {
+            $('input[type="submit"].btn').on('dblclick',
+                function (event) {
+                    event.preventDefault();
+                });
+        });
+    </script>
+}

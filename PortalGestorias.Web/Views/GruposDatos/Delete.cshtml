@@ -1,0 +1,60 @@
+﻿@model PortalGestorias.Domain.Entities.GrupoDatosMaestros
+
+@{
+    ViewBag.Title = "Dar de Baja Grupo de datos";
+}
+
+<h3>Dar de Baja</h3>
+
+<h3>¿Está seguro que desea confirmar la acción de baja?</h3>
+<div>
+    <h4>Grupo de Datos Maestros</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Metadatos)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Metadatos)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaMod)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaMod)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UsuMod)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UsuMod)
+        </dd>
+
+    </dl>
+
+    @Html.ActionLink("Volver a la lista", "Index", "DatosMaestros") |
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            @if (Model.Activo)
+            {
+                <input type="submit" value="Dar de Baja" class="btn btn-default" />
+            }
+        </div>
+    }
+</div>

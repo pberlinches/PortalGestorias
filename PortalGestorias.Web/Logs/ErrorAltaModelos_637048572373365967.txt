@@ -1,0 +1,3 @@
+FILA:2 *** ERROR: YA EXISTE EL MODELO
+El TipoModelo no puede estar vacío 
+El TipoModelo no puede estar vacío 

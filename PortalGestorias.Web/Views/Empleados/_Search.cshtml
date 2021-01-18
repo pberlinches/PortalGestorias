@@ -1,0 +1,65 @@
+﻿@model PortalGestorias.Domain.Models.BusquedaEmpleado
+
+@{
+
+    var action = ViewContext.RouteData.Values["action"].ToString();
+    var style = string.Empty;
+    if (action.Equals("search", StringComparison.InvariantCultureIgnoreCase))
+    {
+        style = "extended";
+    }
+    dynamic htmlAttributes = new { @class = "form-control" };
+}
+@using (Html.BeginForm("Search", "Empleados", FormMethod.Get))
+{
+<fieldset>
+    <div class="extended panel-collapse collapse out " id="filtros">
+        <div class="form-horizontal">
+            <div class="form-group">
+                @Html.Label("Empleado", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.DropDownList("idEmpleado", (SelectList)ViewData["BuscarEmpleado"], (Object)htmlAttributes)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Login, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-2">
+                    @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Activos", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-2">
+                    @Html.CheckBoxFor(m => m.Activo, new { @class = "checkbox", id = "Activo" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Administrador, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-2">
+                    @Html.CheckBoxFor(m => m.Administrador, new { @class = "checkbox" })
+                </div>
+                </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Modificacion, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-2">
+                    @Html.CheckBoxFor(m => m.Modificacion, new { @class = "checkbox" })
+                </div>
+                </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Consulta, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-2">
+                    @Html.CheckBoxFor(m => m.Consulta, new { @class = "checkbox" })
+                </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Buscar" id="Buscar" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        </div>
+</fieldset>
+}
+
+

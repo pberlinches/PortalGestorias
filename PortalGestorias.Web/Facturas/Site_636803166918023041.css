@@ -1,0 +1,238 @@
+﻿
+/* poppins-regular - latin */
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    src: url('/fonts/poppins-v5-latin-regular.eot'); /* IE9 Compat Modes */
+    src: local('Poppins Regular'), local('Poppins-Regular'), url('/fonts/poppins-v5-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('/fonts/poppins-v5-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+    url('/fonts/poppins-v5-latin-regular.woff') format('woff'), /* Modern Browsers */
+    url('/fonts/poppins-v5-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('/fonts/poppins-v5-latin-regular.svg#Poppins') format('svg'); /* Legacy iOS */
+}
+
+.custom-navbar-fixed-bottom {
+    background-color: #101010 !important;
+    color: white;
+    text-align: center;
+    font-size: 16px;
+}
+
+.custom-navbar-header {
+    /*background-color: #101010 !important;*/
+    color: white;
+    padding: 20px 20px !important;
+    background-image: url("/img/cabecero_fondo.jpg") !important;
+}
+
+.menu {
+    font-size: 18px;
+}
+
+.menu a {
+    color: white;
+}
+
+.titulo1 {
+    font-size: 16px;
+}
+
+
+.titulo2 {
+    font-size: 14px;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+
+.panel-heading.row {
+    margin: 0;
+    padding-left: -15px;
+    padding-right: 0px;
+    color: #ffffff;
+    background-color: #286A78;
+    border-color: #286A78;
+    border: solid;
+}
+
+.btn-crm {
+    background-color: white;
+    color: #286A78;
+    float: right;
+    margin-right: 10px;
+}
+
+.panel-crm {
+    display: inline;
+}
+
+.img-crm {
+    border-radius: 50%;
+    height: 40px;
+    margin-right: 10px;
+    display: inline-block;
+    float: left;
+}
+
+
+.row-crm:hover:after {
+    font-family: 'Glyphicons Halflings';
+    content: "\270f";
+    color: #286A78;
+    font-size: 14px;
+    display: inline-block;
+    text-overflow: inherit !important;
+    overflow: inherit !important;
+}
+
+.column a {
+    color: white;
+}
+
+.custom-breadcrumb {
+    background-color: transparent !important;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.avatar {
+    border-radius: 50%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.btn, .form-control {
+    font-size: 13px !important;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+
+
+
+.dl-horizontal dt {
+    white-space: normal;
+}a
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+
+fieldset > legend {
+    padding: 0 7px;
+    cursor: pointer;
+}
+
+fieldset > div.form-horizontal {
+    display: none;        
+}
+
+fieldset > div.form-horizontal.extended {
+    display: block;
+}
+
+/* CUSTOM STYLES DR */
+
+body { background: #f6f6f6; }
+
+.body-content { background: #fff; }
+
+.navbar { padding: 10px 0; border-bottom: 1px solid #ccc; box-shadow: 0px 1px 10px rgba(0,0,0,.4); background: #fff; }
+.navbar-header .navbar-brand { margin-right: 40px; }
+.nav > li > a:focus, .nav > li > a:hover, .nav .open>a, .nav .open>a:focus, .nav .open>a:hover {
+    background-color: #418cd1;
+    color: #fff;
+}
+.nav .dropdown-menu { border: 0px; background-color: #418cd1; }
+.dropdown-menu>li>a { color: #fff; }
+.body-content { padding-top: 30px; }
+
+#title h2 { display: inline-block; }
+#title .btn { float: right; margin-top: 20px; }
+
+#buscador { width: 90%; /* border: 1px solid #ccc; */ margin: 40px auto; }
+
+#listado .table>tbody>tr>td:last-child, #listado .table>tbody>tr>th:last-child, #listado .table>tfoot>tr>td:last-child, #listado .table>tfoot>tr>th:last-child, #listado .table>thead>tr>td:last-child, #listado .table>thead>tr>th:last-child { text-align: center; }
+
+.panel-heading .accordion-toggle:after {
+    font-family: 'Glyphicons Halflings';
+    content: "\e114";
+    float: right;
+    color: grey;
+}
+.panel-heading .accordion-toggle.collapsed:after {
+    content: "\e080";
+}
+
+.contacto:before {
+    font-family: 'Glyphicons Halflings';
+    content: "\e008 \00a0";
+    color: grey;
+    float:left;
+}
+
+
+.prueba-table {
+    float: left;
+}
+.telefono:before {
+    font-family: 'Glyphicons Halflings';
+    content: "\e182 \00a0";
+    color: grey;
+    float: left;
+    display: inline-block;
+}
+
+.form-horizontal .form-group {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.navbar-toggle .icon-bar { background: #000; }
+.navbar-toggle { border: 1px solid #000; }
+
+#solicitudes { padding-bottom: 20px; border-bottom: 1px dotted #a7a7a7; margin-bottom: 20px; }
+#solicitudes h2, #aprobaciones h2, #rrhh h2 {
+    display: inline-block;
+    color: #fff;    
+    background: transparent;
+    color: #418CD1
+}
+    #solicitudes h4 {
+        background: transparent;
+        color: #418CD1;
+        font-size: 18px !important;
+    }
+#rrhh { border-left: 1px dotted #a7a7a7; }
+
+@media only screen and (min-device-width : 375px) and (max-device-width : 568px) {
+	
+	/* iphone 6 */
+	
+	#title h2 { display: block; }
+    #title .btn { float: none; }
+    .navbar-nav .open .dropdown-menu { border: 0px; background-color: #418cd1; }
+    .navbar-brand { margin-left: 15px; }
+
+    #solicitudes {border-bottom: none; }
+#rrhh { border-left: none; }
+
+}
+
+@media only screen and (min-device-width : 414px) and (max-device-width : 568px) {
+	
+	/* iphone 6plus */
+	
+	.navbar-nav .open .dropdown-menu { border: 0px; background-color: #418cd1; }
+    .navbar-brand { margin-left: 15px; }
+
+
+}

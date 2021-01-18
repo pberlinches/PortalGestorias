@@ -1,0 +1,6 @@
+﻿@model DateTime?
+@{
+    var formatString = string.IsNullOrEmpty(ViewData.ModelMetadata.EditFormatString) ? "{0:d}" : ViewData.ModelMetadata.EditFormatString;
+
+}
+@Html.Raw(string.Format(formatString, Model.HasValue ? Model.Value.Date.ToShortDateString() : ""))

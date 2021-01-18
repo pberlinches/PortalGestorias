@@ -1,0 +1,25 @@
+﻿@using System.Security.Claims
+@using PortalGestorias.Domain.Entities
+@using PortalGestorias.Web.Controllers
+@using PortalGestorias.Web.Security
+@model IEnumerable<GrupoDatosMaestros>
+
+@{
+    var user = User as ClaimsPrincipal;
+
+    var gridGrupos = new WebGrid(rowsPerPage: (int)ViewBag.RowsPerPage / 2, canSort: false, pageFieldName: "pageGrupo");
+    gridGrupos.Bind(Model, autoSortAndPage: false, rowCount: (int)ViewBag.TotalRowsGrupos);
+    var columnsGrupos = new List<WebGridColumn>
+    {
+        Html.Column(model => model.Nombre, header: "Grupo", format: @<text>@Html.ActionLink(item.Nombre, "Search", new {id=item.Id, pageGrupo = ViewBag.CurrentPageGrupo})</text>),
+        Html.Column(model => model.Metadatos, header: "Metadatos"),
+        gridGrupos.Column("", "", @<text>@Html.ActionLink("Consulta", "DetailsGrupo", new { id = item.Id })
+@{
+    var bajaLink = item.Activo ? Html.ActionLinkAuthorize(" ", "DeleteGrupo", "DatosMaestros", user.GetAuthContext(DataOperation.Delete, Controllers.Maestros), new {id = item.Id}, new {@class = "fa fa-trash", aria_hidden = "true"}) : Html.Raw("Baja");
+    bajaLink = !string.IsNullOrWhiteSpace(bajaLink.ToHtmlString()) ? Html.Raw(" | "+bajaLink.ToHtmlString()) : Html.Raw("");
+}
+@bajaLink</text>)
+    };
+}
+
+@gridGrupos.GetHtml(tableStyle:  "table table-striped", columns: columnsGrupos)

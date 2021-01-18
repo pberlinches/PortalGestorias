@@ -1,0 +1,45 @@
+﻿@model PortalGestorias.Domain.Entities.TipoModelo
+
+@{
+
+    ViewBag.Title = "Dar de Baja Tipo Modelo";
+}
+<div class="col-md-12">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb custom-breadcrumb">
+            <li class="breadcrumb-item titulo1">@Html.ActionLink("SISTEMAS", "Index", "Home")</li>
+            <li class="breadcrumb-item titulo1">@Html.ActionLink("MANTENIMIENTO TIPOS DE MODELO", "Index", "TiposModelos")</li>
+            <li class="breadcrumb-item titulo1 active">  @ViewBag.Title.ToUpper() </li>
+        </ol>
+    </nav>
+</div>
+
+<h3 class="col-md-offset-1">¿Está seguro que desea confirmar la acción de baja?</h3>
+<div>
+
+    <hr />
+
+    <dl class="dl-horizontal col-md-offset-1">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+
+        <div class="form-group col-md-offset-1">
+            @Html.ActionLink("Volver a la lista", "Index", null, new { @class = "btn btn-default" })
+            @if (Model.Activo)
+            {
+                <input type="submit" value="Dar de Baja" class="btn btn-danger" />
+            }
+        </div>
+    }
+</div>

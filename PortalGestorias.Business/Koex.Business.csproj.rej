@@ -1,0 +1,9 @@
+diff a/GdP.Business/GdP.Business.csproj b/GdP.Business/GdP.Business.csproj	(rejected hunks)
+@@ -60,6 +60,7 @@
+     <Compile Include="Validations\EntityState.cs" />
+     <Compile Include="Validations\EntityValidatorBase.cs" />
+     <Compile Include="Validations\IEntityValidator.cs" />
++    <Compile Include="Validations\ProyectoValidator.cs" />
+   </ItemGroup>
+   <ItemGroup>
+     <ProjectReference Include="..\GdP.Domain\GdP.Domain.csproj">

@@ -1,0 +1,93 @@
+﻿@using System.Security.Claims
+@using PortalGestorias.Web.Controllers
+@using PortalGestorias.Web.Security
+@model PortalGestorias.Domain.Entities.GrupoDatosMaestros
+
+@{
+    var title = "Editar";
+    var action = "Edit";
+
+    if (Model.Id <= 0)
+    {
+        title = "Crear";
+        action = "CreateGrupo";
+    }
+
+    dynamic htmlAttributes = new { @class = "form-control" };
+    var viewOnly = ViewBag.ViewOnly != null && ViewBag.ViewOnly;
+    if (viewOnly)
+    {
+        htmlAttributes = new { @class = "form-control", disabled = "disabled" };
+    }
+
+    var user = User as ClaimsPrincipal;
+    ViewBag.Title = $"{title} Grupo de Datos Maestros";
+}
+
+
+@using (Html.BeginForm(action))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+        <h3>Grupo de Datos Maestros</h3>
+        <hr />
+        
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Nombre, new { htmlAttributes })
+                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Metadatos, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Metadatos, (object)htmlAttributes)
+                @Html.ValidationMessageFor(model => model.Metadatos, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+    @if (!viewOnly)
+    {
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Guardar" class="btn btn-default"/>
+            </div>
+        </div>
+    }
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Volver al listado", "Index", null, new { @class = "btn btn-default" })
+    @if (viewOnly && Model.Activo && user.ResourceAccessValidation(DataOperation.Update, Controllers.Maestros))
+    {
+        @Html.ActionLink("Editar", "EditGrupo", new {id = Model.Id }, new { @class = "btn btn-primary" })
+    }
+    @if (viewOnly && !Model.Activo && user.ResourceAccessValidation(DataOperation.Delete, Controllers.Maestros))
+    {
+        @Html.Raw(" | ")
+        using (Html.BeginForm("Activate", "GruposDatos", new { id = Model.Id }))
+        {
+            @Html.AntiForgeryToken()
+            <input type="submit" value="Activar" class="btn btn-default" />
+        }
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(function () {
+            $('input[type="submit"].btn').on('dblclick',
+                function (event) {
+                    event.preventDefault();
+                });
+        });
+    </script>
+}

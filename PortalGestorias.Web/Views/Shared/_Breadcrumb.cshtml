@@ -1,0 +1,13 @@
+﻿@using PortalGestorias.Web.Models
+@{
+    var breadcrumb = (Breadcrumb) ViewBag.Breadcrumb;
+}
+
+@if (breadcrumb != null)
+{
+    var level = 1;
+    foreach (var item in breadcrumb.Items){
+        @Html.Raw(level > 1 ? " > " : "")@(!string.IsNullOrWhiteSpace(item.Action) ? Html.ActionLink(item.Text, item.Action, item.Parameters) : Html.Raw(item.Text))
+        level++;
+    }
+}

@@ -1,0 +1,387 @@
+﻿
+@{
+    ViewBag.Title = "NCS Gestor Proyectos ::: Parte Horas";
+}
+
+<h3>Parte de Horas - Álvaro Pérez Rodrigo</h3>
+
+<div class="calendar-app">
+    <div class="row">
+        <div class="col-lg-3 col-md-4">
+
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#controlTab">Control Parte</a></li>
+                <li><a data-toggle="tab" href="#editTab">Edición Parte</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane fade in active" id="controlTab">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Proyecto</th>
+                                <th>Horas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Toledo & Asociados - GESTYA - Gestión</td>
+                                <td>129,5</td>
+                            </tr>
+                            <tr>
+                                <td>Vacaciones</td>
+                                <td>31,5</td>
+                            </tr>
+                            <tr>
+                                <td>Enfermedad</td>
+                                <td>6</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Total</th>
+                                <th>177</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="editTab">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-6 col-xs-12 co-xs-pull-12">
+                            <!-- START panel-->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">Acciones</h4>
+                                </div>
+                                <!-- Default external events list-->
+                                <div class="">
+                                    <div class="panel-body">
+                                        <div class="">
+                                            <span class="checkbox c-checkbox">
+                                                <label>
+                                                    <input id="include-weekend" type="checkbox" />
+                                                    <span class="fa fa-check"></span>Incluir no laborables
+                                                </label>
+                                            </span>
+                                        </div>
+                                        <div class="">
+                                            <span class="checkbox c-checkbox">
+                                                <label>
+                                                    <input id="include-holiday" type="checkbox" />
+                                                    <span class="fa fa-check"></span>Incluir festivos
+                                                </label>
+                                            </span>
+                                        </div>
+
+                                        <div id="limpiar" class="btn btn-primary" onclick="if (confirm('¿Está seguro que desea limpiar las imputaciones realizadas?')) { location.reload(); }">Limpiar</div>
+                                        <div id="guardar" class="btn btn-success">Guardar</div>      <br /><br />                                        
+                                        <div id="rechazar" class="btn btn-danger">Devolver al Empleado</div>                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END panel-->
+                        </div>
+                        <div class="col-md-12 col-sm-6 col-xs-12 co-xs-pull-12">
+                            <!-- START panel-->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">Asignaciones del empleado</h4>
+                                </div>
+                                <!-- Default external events list-->
+                                <div class="external-events-trash">
+                                    <div class="panel-body">
+                                        <div class="external-events">
+                                            <div class="bg-primary">Toledo & Asociados - GESTYA - Gestión</div>
+                                            <div class="bg-danger text-danger" style="color:black">El Ejidillo - Ekon - Gestión</div>
+                                            <div class="bg-primary">NCS - GdP - Análisis</div>
+                                        </div>                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END panel-->
+                        </div>
+                        <div class="col-md-12 col-sm-6 col-xs-12 co-xs-push-12">
+                            <!-- START panel-->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">Buscar Asignacion</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="input-group mb">
+                                        <input type="text" placeholder="Proyecto o Asignacion..." class="form-control external-event-name" />
+                                        <div class="input-group-btn">
+                                            <button type="button" class="btn btn-default external-event-add-btn">Añadir</button>
+                                        </div>
+                                    </div>
+                                    <p class="text-muted">
+                                        <small>Elige asignacion</small>
+                                    </p>
+
+                                </div>
+                            </div>
+                            <!-- END panel-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+            
+        </div>
+        <div class="col-lg-9 col-md-8">
+            <!-- START panel-->
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <!-- START calendar-->
+                    <div id="calendar"></div>
+                    <!-- END calendar-->
+                </div>
+            </div>
+            <!-- END panel-->
+        </div>
+    </div>
+    <!-- END row-->
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="eventInfo" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Imputación</h4>
+            </div>
+            <div class="modal-body">
+                <p><input type="number" id="horas" />Horas a imputar</p>
+            </div>
+            <div class="modal-footer">
+                <!--<button id="btnJornadaStd" type="button" class="btn btn-default">Jornada Normal</button>-->
+                <button id="btnModificarEvento" type="button" class="btn btn-primary">Guardar</button>
+                <button id="btnEliminarEvento" type="button" class="btn btn-danger">Eliminar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+@section styles{
+    <link rel='stylesheet' href='~/Scripts/fullcalendar/fullcalendar.css' />
+    <link rel='stylesheet' href='~/Scripts/fullcalendar/calendar.css' />
+}
+
+@section scripts{
+    <script src='~/Scripts/jquery-ui.js'></script>
+    <script src='~/Scripts/jquery.ui.touch-punch.js'></script>
+
+    <script src='~/Scripts/fullcalendar/fullcalendar.js'></script>
+    <script src='~/Scripts/fullcalendar/es.js'></script>
+    <script src='~/Scripts/fullcalendar/calendar.js'></script>
+
+    <script>
+        
+        var newId = 0;
+        var employeeId = 2;
+
+        var festivos = [
+            moment('2017-12-25'),
+            moment('2017-12-06'),
+            moment('2017-12-08'),
+            moment('2018-01-01'),
+            moment('2018-01-06')
+        ];
+
+        function modificarHoras() {
+            var calElement = $('#calendar');
+            var eventos = calElement.fullCalendar('clientEvents');
+            var nuevos = new Array();
+            var viejos = new Array();
+            var findes = $('#include-weekend').is(':checked');
+            var evento;
+            var horas = $('#horas').val();
+
+            var datos = $('#eventInfo').first().data('event');
+            if (datos) {
+                datos.start = datos.start.startOf('day').add($('#horas').val(), 'hours');
+
+                if (datos.end && datos.end.date() != datos.start.date()) {
+                    var dias = datos.end.date() - datos.start.date();
+                    var comienzo = moment(datos.start).add(-1, 'd');
+                    for (var j = 0; j < dias; j++) {
+                        var recomienzo = moment(comienzo.add(1, 'd'));
+                        recomienzo._ambigTime = false;
+                        if (recomienzo.isoWeekday() == 5 && horas == 8.5) {
+                            recomienzo.add(-2.5, 'h');
+                        }
+                        var nuevo = {
+                            title: datos.title,
+                            backgroundColor: datos.backgroundColor,
+                            borderColor: datos.borderColor,
+                            allDay: false,
+                            start: recomienzo
+                        };
+
+                        nuevo.id = --newId;
+
+                        if (canAddDay(recomienzo)) {
+                            nuevos.push(nuevo);
+                        }
+                    }
+
+                    viejos.push(datos.id);
+                }
+
+            }
+
+            if (nuevos.length == 0) {
+                $('#calendar').fullCalendar('updateEvent', datos);
+            }
+            else {
+                calElement.fullCalendar('removeEvents', function (event) {
+                    if (event) {
+                        for (var i = 0; i < viejos.length; i++) {
+                            if (event.id == viejos[i]) return true;
+                        }
+                    }
+
+                    return false;
+                });
+                calElement.fullCalendar('renderEvents', nuevos);
+            }
+            
+            $('#eventInfo').modal('hide');
+        }
+
+        function canAddDay(date) {
+            var addfindes = $('#include-weekend').is(':checked');
+            var addfestivos = $('#include-holiday').is(':checked');
+
+            var isFestivo = festivos.some(function (festivo) { return festivo.isSame(date,'day'); });
+            var isFinde = date.isoWeekday() > 5;
+
+            return !(isFestivo || isFinde) ||
+                (isFestivo && addfestivos) ||
+                (isFinde && addfindes);
+            
+        }
+
+        function modificarJornada() {
+            var horas = 8.5;
+            var datos = $('#eventInfo').first().data('event');
+
+            if (!datos.end && datos.start.isoWeekday == 5) {
+                horas = 6;
+            }
+
+            $('#horas').val(horas);
+            modificarHoras()
+        }
+
+        function eliminarEvento() {
+            var datos = $('#eventInfo').first().data('event');
+
+            $('#calendar').fullCalendar('removeEvents', datos.id);
+            $('#eventInfo').modal('hide');
+        }
+
+        $('document').ready(function () {
+            $('#btnModificarEvento').click(modificarHoras);
+            $('#btnJornadaStd').click(modificarJornada);
+            $('#btnEliminarEvento').click(eliminarEvento);
+            $('#verificar').click(verificarEventos);
+            $('#guardar').click(sendEvents);
+
+        });
+
+        function addDay(start, days) {
+            var dias = days;
+            return function () { return start.add(dias, 'days'); };
+        }
+
+        var addDays=[];
+        for (var d= 0; d < 31;d++){
+            addDays[d] = function (start) { return addDay(start, d) };
+        }
+
+        function verificarEventos() {
+            var calElement = $('#calendar');
+            var eventos = calElement.fullCalendar('clientEvents');
+            var nuevos = new Array();
+            var viejos = new Array();
+            var findes = $('#include-weekend').is(':checked');
+            var evento;
+
+            for (var i = 0; i < eventos.length; i++) {
+                evento = eventos[i];
+                if (evento.end && evento.end.date() != evento.start.date()) {
+                    var dias = evento.end.date() - evento.start.date();
+                    var comienzo = evento.start.add(-1,'d');
+                    for (var j = 0; j < dias; j++) {
+                        var recomienzo = moment(comienzo.add(1,'d'));
+                        var nuevo = {
+                            title: evento.title,
+                            backgroundColor: evento.backgroundColor,
+                            borderColor: evento.borderColor,
+                            allDay: false,
+                            start: recomienzo
+                        };
+
+                        nuevo.id = --newId;
+                        //nuevo.start = comienzo;
+                        nuevos.push(nuevo);
+
+                    }
+
+                    viejos.push(evento.id);
+                }
+            }
+
+            calElement.fullCalendar('removeEvents', function (event) {
+                if (event) {
+                    for (var i = 0; i < viejos.length; i++) {
+                        if (event.id == viejos[i]) return true;
+                    }
+                }
+
+                return false;
+            });
+            calElement.fullCalendar('renderEvents', nuevos);
+        }       
+
+        function sendEvents() {
+            var calElement = $('#calendar');
+            var eventos = calElement.fullCalendar('clientEvents');
+            
+            
+
+            var lista = function () {
+                var objetos = [];
+                for (var i = 0; i < eventos.length; i++) {
+                    objetos.push({
+                        id: eventos[i].id,
+                        title: eventos[i].title,
+                        start: eventos[i].start,
+                        end: eventos[i].end
+                    })
+                }
+                return objetos;
+            }();
+
+            $.post({
+                url: '/api/Asignaciones/PostImputaciones',
+                data: JSON.stringify(lista),
+                success: function () { alert('Bravo!!!!'); },
+                error: function () { alert('OHHHHHH!!!!');},
+                contentType: 'application/json',
+                dataType: 'json'
+            });
+
+        }
+
+    </script>
+
+}

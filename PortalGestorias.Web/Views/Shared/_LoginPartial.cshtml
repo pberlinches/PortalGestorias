@@ -1,0 +1,18 @@
+﻿@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("Signout", "Home", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+        <div id="logged-user" class="column two" style="margin-right:50px;">
+            <p><i class="fa fa-user-circle"></i>&nbsp;Hola, @User.Identity.Name</p>
+            <a href="javascript:document.getElementById('logoutForm').submit()">Desconectar</a>&nbsp;&nbsp;|&nbsp;
+            <a href="@(System.Configuration.ConfigurationManager.AppSettings["Authentication:Authority"] + "/Manage/ChangePassword" )">Cambiar Contraseña</a>
+        </div>
+    }
+}
+else
+{
+    <div id="logged-user" class="column two">
+        <p><i class="fa fa-user-circle"></i>&nbsp;@Html.ActionLink("Signin", "Signin", "Home", routeValues: null, htmlAttributes: new { id = "loginLink" })</p>
+    </div>
+}

@@ -1,0 +1,41 @@
+﻿@using PortalGestorias.Infrastructure.Data
+@using PortalGestorias.Web.App_Start
+@model PortalGestorias.Domain.Entities.DatoMaestro
+
+@{
+    var ctx = WindsorActivator.Container.Resolve<CrmDbContext>();
+    var type = ViewData.ModelMetadata.ContainerType.Name;
+    var property = ViewData.ModelMetadata.PropertyName;
+
+    var grupo = $"{{\"type\":\"{type}\",\"property\":\"{property}\"}}";
+    var dbDatosMaestros = ctx.DatosMaestros
+        .Where(dm => dm.Grupo.Metadatos == grupo)
+        .ToList();
+    var datosMaestros = dbDatosMaestros
+        .Select(dm => new { Key = $"{dm.IdGrupo}|{dm.IdCode}", dm.Value })
+        .ToList();
+
+    var defaultValue = dbDatosMaestros.FirstOrDefault(d=> d.Metadata != null && d.Metadata.Contains("\"default\":\"true\""));
+    string selectedValue = defaultValue != null
+        ? $"{defaultValue.IdGrupo}|{defaultValue.IdCode}"
+        : null;
+    if (Model != null)
+    {
+        selectedValue = $"{Model.IdGrupo}|{Model.IdCode}";
+    }
+
+    var addAny = (bool?)ViewData["AddAny"];
+    var anyText = " ";
+    if (addAny.HasValue && addAny.Value)
+    {
+        var txt = (string) ViewData["AnyText"];
+        anyText = !string.IsNullOrWhiteSpace(txt) ? txt : "Cualquiera";
+        selectedValue = Model != null ? selectedValue : null;
+    }
+    datosMaestros.Insert(0, new {Key = "", Value = anyText});
+    var list = new SelectList(datosMaestros, "Key", "Value", selectedValue);
+
+    var htmlAttributes = ViewData["htmlAttributes"];
+}
+
+@Html.DropDownList(String.Empty, list, htmlAttributes: htmlAttributes)

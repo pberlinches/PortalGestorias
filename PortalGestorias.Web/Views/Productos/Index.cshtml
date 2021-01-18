@@ -1,0 +1,112 @@
+﻿@using System.Security.Claims
+@using PortalGestorias.Domain.Entities
+@using PortalGestorias.Domain.Models
+@using PortalGestorias.Web.Security
+@using PortalGestorias.Web.Controllers
+
+
+@model IEnumerable<Producto>
+
+@{
+    ViewBag.Title = "John Deere - Sistema de Inventario ::: Productos";
+    var user = User as ClaimsPrincipal;
+    var producto = " ";
+    var grid = new WebGrid(rowsPerPage: (int)ViewBag.RowsPerPage, canSort: false);
+    grid.Bind(Model, autoSortAndPage: false, rowCount: (int)ViewBag.SearchCount);
+    var columns = new List<WebGridColumn>
+{
+Html.Column(model => model.Estado.Nombre),
+Html.Column(model => model.NumeroPedido),
+Html.Column(model => model.Modelo.TipoModelo.Nombre),
+grid.Column("", "Marca",@<text>@Html.ActionLinkAuthorize(((string)item.Marca.Nombre == null ||(string)item.Marca.Nombre == "" ? " " : (string)item.Marca.Nombre ),"Details" , "Marcas", user.GetAuthContext(DataOperation.Read, Controllers.Marcas) , new {id = item.Marca.Id, listadoProductos = true}, null)</text>),
+grid.Column("", "Modelo",@<text>@Html.ActionLinkAuthorize(((string)item.Modelo.Nombre == null ||(string)item.Modelo.Nombre == "" ? " " : (string)item.Modelo.Nombre ),"Details" , "Modelos",  user.GetAuthContext(DataOperation.Read, Controllers.Modelos) , new {id = item.Modelo.Id,  listadoProductos = true}, null)</text>),
+ Html.Column(model => model.Almacen.Nombre),
+  Html.Column(model => model.Ubicacion.Nombre),
+  Html.Column(model => model.Departamento.Codigo),
+  grid.Column("", "Código de Barras",@<text>@Html.ActionLink(((string)item.CodigoBarras == null ||(string)item.CodigoBarras == "" ? " " : (string)item.CodigoBarras ),"Details" , "Productos", new {id = item.Id}, null)</text>),
+  Html.Column(model => model.NumeroSerie),
+                                      Html.Column(model => model.Destinatario),
+                                    Html.Column(model => model.FechaEntrada),
+                                    Html.Column(model => model.FechaEntrega),
+                                    Html.Column(model => model.FechaBaja),
+                                    Html.Column(model => model.UsuarioAlta.NombreCompleto, null, "Usuario Alta"),
+                                    Html.Column(model => model.UsuarioEntrega.NombreCompleto, null, "Usuario Entrega"),
+                                    Html.Column(model => model.UsuarioBaja.NombreCompleto, null, "Usuario Baja"),
+                                    };
+}
+
+
+
+<div class="col-md-8">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb custom-breadcrumb">
+            <li class="breadcrumb-item titulo1">@Html.ActionLink("SISTEMAS", "Index", "Home")</li>
+            <li class="breadcrumb-item titulo1 active">CONSULTA PRODUCTO</li>
+        </ol>
+    </nav>
+</div>
+
+
+<div style="clear:both"></div><div style='text-align:right'>
+    <button type="button" class="btn btn-default rai " style="margin-left:3px" data-toggle="collapse" data-target="#filtros">Mostrar/Ocultar Filtros</button>
+    @*@Html.ActionLinkAuthorize("Nuevo Modelo", "Create", user.GetAuthContext(DataOperation.Create, Controllers.Modelos), null, new { @class = "btn btn-jd-new" })*@
+</div>
+
+
+
+<div id="buscador">
+    <p>@Html.Partial("_Search", (BusquedaProducto)ViewBag.SearchEntity ?? new BusquedaProducto() { Activo = true })</p>
+</div>
+
+@using (Html.BeginForm("ExportExcelConsulta", "Productos", FormMethod.Post))
+{
+    producto = ViewBag.listProductos;
+
+    <input type="hidden" value="@producto" name="listProductos" />
+
+    @Html.AntiForgeryToken()
+    <div style="text-align: right">
+        <div class="tab-content form-group ">
+            <input type="submit" value="Generar Informe" name="submitButton" class="btn btn-jd-new" />
+
+            <input type="submit" value="Valor Stock" name="submitButton" class="btn btn-jd-yellow" />
+
+        </div>
+
+    </div>
+
+}
+<div style="text-align: right">
+    <p>
+        Mostrando   <strong>@Html.Raw(ViewBag.SearchCount)</strong> de <strong> @Html.Raw(ViewBag.TotalRowCount) </strong> registros&nbsp;
+    </p>
+</div>
+<div id="listado">
+    @grid.GetHtml(tableStyle: "table table-striped ", headerStyle: "jd_webgrid-header", columns: columns)
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+
+        $(function () {
+            $('input[type="submit"].btn').on('dblclick',
+                function (event) {
+                    event.preventDefault();
+                });
+        });
+
+        $("#Buscar").click(function () {
+            $("input[type='hidden'][name='Activo]").remove();
+        });
+
+
+
+        $('document').ready(function () {
+            controlDate('#FechaEntradaDesde');
+            controlDate('#FechaEntradaHasta');
+        });
+
+    </script>
+}

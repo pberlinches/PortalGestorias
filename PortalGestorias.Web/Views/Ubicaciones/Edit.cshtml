@@ -1,0 +1,101 @@
+﻿@using System.Security.Claims
+@using PortalGestorias.Web.Controllers
+@using PortalGestorias.Web.Security
+
+
+@model PortalGestorias.Domain.Entities.Ubicacion
+
+@{
+    ViewBag.Title = "John Deere - Sistema de Inventario ::: Ubicación";
+    <style type="text/css">
+        label {
+            text-align: left !important;
+        }
+    </style>
+
+    var title = "Editar";
+    var action = "Edit";
+
+    if (Model.Id <= 0)
+    {
+        title = "Crear";
+        action = "Create";
+    }
+
+    var viewOnly = ViewBag.ViewOnly != null && ViewBag.ViewOnly;
+    dynamic htmlAttributes = new { @class = "form-control" };
+
+    if (viewOnly)
+    {
+        htmlAttributes = new { @class = "form-control", disabled = "disabled" };
+    }
+    var user = User as ClaimsPrincipal;
+}
+
+@using (Html.BeginForm(action))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+
+        <div class="col-md-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb custom-breadcrumb">
+                    <li class="breadcrumb-item titulo1">@Html.ActionLink("SISTEMAS", "Index", "Home")</li>
+                    <li class="breadcrumb-item titulo1">@Html.ActionLink("MANTENIMIENTO UBICACIONES", "Index", "Ubicaciones")</li>
+                    <li class="breadcrumb-item titulo1 active">@ViewBag.Titulo.ToUpper()</li>
+                </ol>
+            </nav>
+        </div>
+
+        @*@Html.ValidationSummary(false, "", new { @class = "text-danger" })*@
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-1 col-md-offset-1" })<span class="mandatory">*</span>
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Nombre, new { htmlAttributes })
+                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @Html.ActionLink("Volver al listado", "Index", null, new { @class = "btn btn-default" })
+                @if (viewOnly && Model.Activo && user.ResourceAccessValidation(DataOperation.Update, Controllers.Ubicaciones))
+                {
+                    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }, new { @class = "btn btn-jd-new" })
+                }
+                @if (!viewOnly)
+                {
+                    <input type="submit" value="Guardar" class="btn btn-jd-new" />
+                }
+            </div>
+        </div>
+    </div>
+}
+<div>
+    @if (viewOnly && !Model.Activo && user.ResourceAccessValidation(DataOperation.Delete, Controllers.Ubicaciones))
+    {
+        using (Html.BeginForm("Activate", Controllers.Marcas, new { id = Model.Id }))
+        {
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    @Html.ActionLink("Volver al listado", "Index", null, new { @class = "btn btn-default" })
+                    @Html.AntiForgeryToken()
+                    <input type="submit" value="Activar" class="btn btn-default" />
+                </div>
+            </div>
+        }
+    }
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(function () {
+            $('input[type="submit"].btn').on('dblclick',
+                function (event) {
+                    event.preventDefault();
+                });
+        });
+    </script>
+}

@@ -1,0 +1,87 @@
+﻿@model  PortalGestorias.Domain.Models.BusquedaProducto
+
+@{
+
+    var action = ViewContext.RouteData.Values["action"].ToString();
+    var selectArticulo = ViewBag.SelectArticulos != null && ViewBag.SelectArticulos;
+
+    dynamic htmlAttributes = new { @class = "form-control" };
+}
+
+
+@using (Html.BeginForm("SearchBaja", "Productos", FormMethod.Get))
+{
+  
+    <fieldset>
+        <div class="extended panel-collapse collapse out " id="filtros">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TipoModelo.Nombre, htmlAttributes: new { @class = "control-label col-md-1 " })
+                    <div class="col-md-3">
+                        @Html.DropDownList("IdTipoModelo", (SelectList)ViewData["TipoModelo"], (object)htmlAttributes)
+                    </div>
+                    @Html.LabelFor(model => model.StockRoom, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-1" })
+                    <div class="col-md-3">
+                        @Html.DropDownList("IdStockRoom", (SelectList)ViewData["StockRoom"], (object)htmlAttributes)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Almacen.Nombre, htmlAttributes: new { @class = "control-label col-md-1 " })
+                    <div class="col-md-3">
+                        @Html.DropDownList("IdAlmacen", (SelectList)ViewData["Almacen"], (object)htmlAttributes)
+                    </div>
+                    @Html.LabelFor(model => model.Ubicacion.Nombre, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-1" })
+                    <div class="col-md-3">
+                        @Html.DropDownList("IdUbicacion", (SelectList)ViewData["Ubicacion"], (object)htmlAttributes)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Marca.Nombre, htmlAttributes: new { @class = "control-label col-md-1 " })
+                    <div class="col-md-3">
+                        @Html.DropDownList("IdMarca", (SelectList)ViewData["Marca"], (object)htmlAttributes)
+                    </div>
+                    @Html.LabelFor(model => model.Modelo, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-1" })
+                    <div class="col-md-3">
+                        @Html.DropDownList("IdModelo", (SelectList)ViewData["Modelo"], (object)htmlAttributes)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CodigoBarras, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.CodigoBarras, new { htmlAttributes })
+                    </div>
+                    @Html.LabelFor(model => model.NumeroSerie, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-1" })
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.NumeroSerie, new { htmlAttributes })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NumeroPedido, htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-3">
+                        @Html.EditorFor(model => model.NumeroPedido, new { htmlAttributes })
+                    </div>
+                </div>
+
+                <div style="display:none">   @Html.EditorFor(model => model.selectedArticulos, new { htmlAttributes })</div>
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-md-10">
+                        <input type="submit" value="Buscar" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    <div style="text-align: right !important">
+        <p>
+            Mostrando   <strong>@Html.Raw(ViewBag.SearchCount)</strong> de <strong> @Html.Raw(ViewBag.TotalRowCount) </strong> registros&nbsp;
+            <input type="submit" value="Confirmar Baja" name="Confirmar" class="btn btn-danger" />
+        </p>
+    </div>
+}
+
+

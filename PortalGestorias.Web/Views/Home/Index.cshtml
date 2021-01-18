@@ -1,0 +1,62 @@
+﻿@using System.Security.Claims
+@using PortalGestorias.Domain.Entities
+@using PortalGestorias.Web.Security
+@using PortalGestorias.Web.Controllers
+
+@model IEnumerable<Empleado>
+
+@{
+
+    ViewBag.Title = "John Deere - Inventario ::: Inicio";
+    var EmpACargo = ViewBag.Acargo;
+    var user = User as ClaimsPrincipal;
+}
+
+@*<style type="text/css">
+    td, th {
+        text-align: center;
+    }
+</style>*@
+
+
+<div class="col-md-12">
+    <ul class="nav nav-tabs">
+        <li class="active" style="font-weight:bold; font-size:18px"><a data-toggle="tab" href="#miHome">Sistema de Inventario</a></li>
+    </ul>
+
+    <div class="jdwrapper col-md-6">
+        <div style="margin-bottom:10px; font-weight:bold; font-size:18px">
+            OPERACIONES FRECUENTES
+            </div>
+            <div style="margin-bottom:10px;">
+                @Html.ActionLinkAuthorize("ENTRADA", "Devolucion", "Productos", user.GetAuthContext(DataOperation.Update, Controllers.Productos), null, new { @class = "btn   jdhomebutton jdhomebutton1 with-margin green" })
+            </div>
+            <div style="margin-bottom:10px;">
+                @Html.ActionLinkAuthorize("SALIDA", "Salida", "Productos", user.GetAuthContext(DataOperation.Delete, Controllers.Productos), null, new { @class = "btn   jdhomebutton jdhomebutton1 with-margin red" })
+            </div>
+    </div>
+
+    <div class="jdwrapper col-md-6">
+        <div style="margin-bottom:10px; font-weight:bold; font-size:18px">
+            OPERACIONES MENOS FRECUENTES
+        </div>
+        <div style="margin-bottom:10px;">
+            @Html.ActionLinkAuthorize("ALTA", "Create", "Productos", user.GetAuthContext(DataOperation.Create, Controllers.Productos), null, new { @class = "btn btn-jd   jdhomebutton jdhomebutton1 with-margin orange" })
+        </div>
+        <div style="margin-bottom:10px;">
+            @Html.ActionLinkAuthorize("AFD", "Baja", "Productos", user.GetAuthContext(DataOperation.Create, Controllers.Productos), null, new { @class = "btn   jdhomebutton jdhomebutton1 with-margin blue" })
+        </div>
+        <div style="margin-bottom:10px;">
+            @Html.ActionLinkAuthorize("CONSULTA", "Index", "Productos", user.GetAuthContext(DataOperation.Read, Controllers.Productos), null, new { @class = "btn btn-jd   jdhomebutton jdhomebutton1 with-margin gray" })
+</div>
+    </div>
+</div>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+        <script type="text/javascript">
+
+        </script>
+    }
+
+

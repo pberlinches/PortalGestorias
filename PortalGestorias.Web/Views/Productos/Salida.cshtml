@@ -1,0 +1,165 @@
+﻿@using System.Security.Claims
+@using PortalGestorias.Domain.Models
+
+@model PortalGestorias.Domain.Models.BusquedaSalidaProducto
+
+
+@{
+    ViewBag.Title = "John Deere - Sistema de Inventario ::: Salida Producto";
+    <style type="text/css">
+        label {
+            text-align: left !important;
+        }
+    </style>
+    
+    var viewOnly = ViewBag.ViewOnly != null && ViewBag.ViewOnly;
+    dynamic htmlAttributes = new { @class = "form-control" };
+
+
+    if (viewOnly)
+    {
+        htmlAttributes = new { @class = "form-control", disabled = "disabled" };
+    }
+    var user = User as ClaimsPrincipal;
+}
+
+@using (Html.BeginForm("Salida", "Productos", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+        <div class="col-md-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb custom-breadcrumb">
+                    <li class="breadcrumb-item titulo1">@Html.ActionLink("SISTEMAS", "Index", "Home")</li>
+                    <li class="breadcrumb-item titulo1 active">SALIDA DE PRODUCTOS</li>
+                </ol>
+            </nav>
+        </div>
+
+        @*@Html.ValidationSummary(false, "", new { @class = "text-danger" })*@
+        <div class="text-danger col-md-offset-1 " style="margin-bottom:20px">
+            @ViewBag.MessageError
+        </div>
+        @Html.ValidationSummary(true, "Por favor, revise los campos de entrada", new { @class = "text-danger" })
+
+        <div class="form-horizontal col-md-10">
+
+            <div class="form-group">
+                <div class="col-md-2 col-md-offset-2" style='text-align:right;'>
+                    @Html.LabelFor(m => m.Destinatario, htmlAttributes: new { @class = "control-label", @id = "labelDestinatario"})
+                </div>
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Destinatario, new { htmlAttributes })
+                </div>
+              
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-2 col-md-offset-2" style='text-align:right'>
+                    @Html.CheckBoxFor(m => m.CheckCodigoBarras, htmlAttributes: new { @class = "control-label" })
+                    @Html.LabelFor(m => m.CodigoBarras, htmlAttributes: new { @class = "control-label" })
+                </div>
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.CodigoBarras, new { htmlAttributes })
+                </div>
+                <div class="col-md-2"  style='text-align:right'>
+                    @Html.CheckBoxFor(m => m.CheckNumeroSerie, htmlAttributes: new { @class = "control-label" })
+                    @Html.LabelFor(m => m.NumeroSerie, htmlAttributes: new { @class = "control-label" })
+                </div>
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.NumeroSerie, new { htmlAttributes })
+                </div>
+
+            </div>
+
+        </div>
+        }
+
+        <div class="col-lg-12 col-md-12 col-xs-12" style="margin-top:20px;">
+            @Html.Partial("_Salida", (List<SalidaProducto>)ViewBag.SalidaProducto)
+        </div>
+
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+            <script type="text/javascript">
+
+        $(function () {
+            $('input[type="submit"].btn').on('dblclick',
+                function (event) {
+                    event.preventDefault();
+                });
+        });
+
+                $(document).ready(function () {
+
+
+
+            if ($("#CheckNumeroSerie").prop("checked") == false) {
+                $('#NumeroSerie').attr('disabled', true);
+                $("#CodigoBarras").focus();
+            }
+            else {
+                $('#CodigoBarras').attr('disabled', true);
+                $("#NumeroSerie").focus();
+            }
+
+            $('#NumeroSerie').val("");
+            $('#CodigoBarras').val("");
+        });
+
+        $('#CheckCodigoBarras').click(function () {
+            $("#CheckNumeroSerie").prop("checked", false);
+            $('#CodigoBarras').attr('disabled', false);
+            $('#NumeroSerie').attr('disabled', true);
+            $('#NumeroSerie').val("");
+            $("#CodigoBarras").focus();
+        });
+
+        $('#CheckNumeroSerie').click(function () {
+            $("#CheckCodigoBarras").prop("checked", false);
+            $('#CodigoBarras').attr('disabled', true);
+            $('#NumeroSerie').attr('disabled', false);
+            $('#CodigoBarras').val("");
+            $("#NumeroSerie").focus();
+        });
+
+
+        $("#CodigoBarras").keydown(function (evt) {
+            if (evt.key == 'Tab') {
+                var codigo = $('#CodigoBarras').val();
+                var serie = $('#NumeroSerie').val();
+                var destinatario = $('#Destinatario').val();
+                var idEstadoDevolucion = $('#IdEstadoDevolucion').val();
+                var url = '@Url.Action("Salida", "Productos")';
+                $('#salidaForm').prop('action', url + "?codigoBarras=" + codigo + "&numeroSerie=" + serie + "&destinatario=" + destinatario + "&idEstadoDevolucion=" + idEstadoDevolucion );
+                document.getElementById("salidaForm").submit();
+            }
+        });
+
+        $("#NumeroSerie").keydown(function (evt) {
+            if (evt.key == 'Tab') {
+                var codigo = $('#CodigoBarras').val();
+                var serie = $('#NumeroSerie').val();
+                var destinatario = $('#Destinatario').val();
+                var url = '@Url.Action("Salida", "Productos")';
+                $('#salidaForm').prop('action', url + "?codigoBarras=" + codigo + "&numeroSerie=" + serie + "&destinatario=" + destinatario);
+                document.getElementById("salidaForm").submit();
+            }
+        });
+
+        $("#Buscar").click(function () {
+            $("input[type='hidden'][name='Activo]").remove();
+        });
+
+        function deleteRow(indice) {
+            var url = '@Url.Action("Salida", "Productos")';
+                $('#salidaForm').prop('action', url + "?indice=" + indice);
+            document.getElementById("salidaForm").submit();
+            return false;
+        }
+
+          
+            </script>
+        }
+

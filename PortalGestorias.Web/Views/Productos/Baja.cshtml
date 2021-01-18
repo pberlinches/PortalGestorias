@@ -1,0 +1,121 @@
+﻿@using System.Security.Claims
+@using PortalGestorias.Domain.Entities
+@using PortalGestorias.Domain.Models
+
+
+@model IEnumerable<Producto>
+
+@{
+    ViewBag.Title = "John Deere - Sistema de Inventario ::: Baja de Productos";
+    var user = User as ClaimsPrincipal;
+ 
+
+    var grid = new WebGrid(rowsPerPage: (int)ViewBag.TotalRowCount, canSort: false);
+    grid.Bind(Model, autoSortAndPage: false, rowCount: (int)ViewBag.TotalRowCount);
+    var columns = new List<WebGridColumn>
+
+
+{
+grid.Column(header: "Seleccionado", style: "GenerarInforme", format: (item) =>
+{
+bool Seleccionado = (item.Value).Seleccionado;
+
+if ((item.Value).Seleccionado != null)
+{
+return Html.CheckBoxFor(x => Seleccionado, new { name = "Seleccionado", id = item.Id, @class= "seleccionado" });
+}
+else
+{
+return "";
+}
+}),
+
+Html.Column(model => model.Almacen.Nombre),
+Html.Column(model => model.Ubicacion.Nombre),
+Html.Column(model => model.Modelo.TipoModelo.Nombre),
+Html.Column(model => model.Marca.Nombre),
+Html.Column(model => model.Modelo.Nombre),
+Html.Column(model => model.Departamento.Codigo),
+Html.Column(model => model.CodigoBarras),
+Html.Column(model => model.NumeroSerie),
+Html.Column(model => model.NumeroPedido),
+Html.Column(model => model.Estado.Nombre),
+};
+}
+
+<div class="col-md-12">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb custom-breadcrumb">
+            <li class="breadcrumb-item titulo1">@Html.ActionLink("SISTEMAS", "Index", "Home")</li>
+            <li class="breadcrumb-item titulo1">@Html.ActionLink("PRODUCTOS", "Index", "Productos")</li>
+            <li class="breadcrumb-item titulo1 active">BAJA PRODUCTO</li>
+        </ol>
+    </nav>
+</div>
+
+<div style="clear:both"></div>
+<div style='text-align:right'>
+    <button type="button" class="btn btn-default rai " style="margin-left:3px" data-toggle="collapse" data-target="#filtros">Mostrar/Ocultar Filtros</button>
+</div>
+
+<div id="buscador" style="margin-right:0px !important">
+    @Html.Partial("_SearchBaja", (BusquedaProducto)ViewBag.SearchEntity ?? new BusquedaProducto() { Activo = true })
+</div>
+
+@using (Html.BeginForm("SearchBaja", "Productos", FormMethod.Get))
+{
+   
+    <button type="button" class="btn btn-jd-new " style="margin-bottom:10px" id="SeleccionarTodos">Seleccionar Todos</button>
+}
+
+<div id="listado">
+    @grid.GetHtml(tableStyle: "table table-striped", headerStyle: "jd_webgrid-header", columns: columns)
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        var articu = "";
+
+        $(function () {
+            $('input[type="submit"].btn').on('dblclick',
+                function (event) {
+                    event.preventDefault();
+                });
+        });
+
+        $('input[type=checkbox]').click(function () {
+            if ($(this).is(':checked')) {
+                articu = articu + $(this).attr('id') + "|";
+                document.getElementById("selectedArticulos").value = articu;
+            }
+
+            else {
+                var eliminar = articu.replace($(this).attr('id') + '|', "");
+                articu = eliminar;
+                document.getElementById("selectedArticulos").value = articu;
+            }
+        });
+
+
+
+        $("#SeleccionarTodos").click(function () {
+
+            var input = document.getElementsByName("Seleccionado");
+            articu = "";
+            for (i = 0; i < input.length; i++) {
+                input[i].checked = true;
+                if (input[i].id != "") {
+                    articu = articu + input[i].id + "|";
+                    document.getElementById("selectedArticulos").value = articu;
+                }
+            }
+        });
+
+        $("#Buscar").click(function () {
+            $("input[type='hidden'][name='Activo]").remove();
+        });
+
+    </script>
+}

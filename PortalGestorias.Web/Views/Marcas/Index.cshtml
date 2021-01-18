@@ -1,0 +1,134 @@
+﻿@using System.Security.Claims
+@using PortalGestorias.Domain.Entities
+@using PortalGestorias.Domain.Models
+@using PortalGestorias.Web.Controllers
+@using PortalGestorias.Web.Security
+
+@model IEnumerable<Marca>
+@{
+    ViewBag.Title = "John Deere - Sistema de Inventario ::: Marcas";
+    var user = User as ClaimsPrincipal;
+    var viewPath = ViewBag.Path != null;
+    var grid = new WebGrid(rowsPerPage: (int)ViewBag.RowsPerPage, canSort: false);
+    grid.Bind(Model, autoSortAndPage: false, rowCount: (int)ViewBag.SearchCount);
+    var columns = new List<WebGridColumn>
+{
+grid.Column("", "Marca",@<text>@Html.ActionLink(((string)item.Nombre == null ||(string)item.Nombre == "" ? " " : (string)item.Nombre ),"Details" , "Marcas", new {id = item.Id}, null)</text>),
+        grid.Column("", "Eliminar", @<text>@( item.Activo ? Html.ActionLinkAuthorize(" ", "Delete", user.GetAuthContext(DataOperation.Delete, Controllers.Marcas), new { id = item.Id }, new { @class = "fa fa-trash",  @style="color:red;" , aria_hidden = "true" }) : Html.Raw("Baja"))</text>, "jd-eliminar"),
+                            };
+}
+
+
+
+<div class="col-md-8">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb custom-breadcrumb">
+            <li class="breadcrumb-item titulo1">@Html.ActionLink("SISTEMAS", "Index", "Home")</li>
+            <li class="breadcrumb-item titulo1 active">MANTENIMIENTO MARCAS</li>
+        </ol>
+    </nav>
+</div>
+
+
+<div style="clear:both"></div><div style='text-align:right'>
+    <button type="button" class="btn btn-default rai " style="margin-left:3px" data-toggle="collapse" data-target="#filtros">Mostrar/Ocultar Filtros</button>
+    @Html.ActionLinkAuthorize("Nueva Marca", "Create", user.GetAuthContext(DataOperation.Create, Controllers.Marcas), null, new { @class = "btn btn-jd-new" })
+</div>
+
+<div id="buscador">
+    <p>@Html.Partial("_Search", (BusquedaMarca)ViewBag.SearchEntity ?? new BusquedaMarca() { Activo = true })</p>
+</div>
+
+@using (Html.BeginForm("ImportExcel", "Marcas", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+<div style="text-align: right">
+    <div class="tab-content form-group ">
+
+        <div class="form-group">
+            <div class="form-inline">
+                @if (user.IsInRole(AppRoles.GestorEmpleado))
+                {
+                <div class="col-md-10 text-danger">
+                    <label class="input-group-btn">
+                        <span class="btn btn-default btn-file">Examinar...<input type="file" name="fileImport" id="fileImport" style="display: none;" /></span>
+                        <input class="form-control " type="text" style="width:250px !important" readonly />
+                    </label>
+                    <br>@ViewBag.Message
+                    <br>@ViewBag.RegistrosActualizados
+                    <br>@ViewBag.RegistrosFallidos
+
+
+                    <br>
+                    <br>
+                    @if (viewPath && ViewBag.RegistrosFallidos != "Registros Fallidos: 0")
+                    {
+                        <a href='@ViewBag.Path' target="_blank">Ver Informe de Errores</a>
+                        <br>
+                        <br>
+                    }
+                </div>
+                }
+                <div class="text-right form-group ">
+                    @if (user.IsInRole(AppRoles.GestorEmpleado))
+                    {
+                        <input type="submit" value="Importar" name="submitButton" class="btn btn-jd-new" />
+                    }
+                    @Html.ActionLink("Exportar", "ExportExcel", null, new { @class = "btn btn-danger" })
+                    </div>
+            </div>
+          
+        </div>
+
+    </div>
+</div>
+  
+}
+
+<div style="text-align: right">
+    <p>
+        Mostrando   <strong>@Html.Raw(ViewBag.SearchCount)</strong> de <strong> @Html.Raw(ViewBag.TotalRowCount) </strong> registros&nbsp;
+    </p>
+</div>
+
+<div id="listado">
+    @grid.GetHtml(tableStyle: "table table-striped jd_webgrid-table",  headerStyle : "jd_webgrid-header", columns: columns)
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+
+        $(document).on('change', ':file', function () {
+            var input = $(this),
+                numFiles = input.get(0).files ? input.get(0).files.length : 1,
+                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            input.trigger('fileselect', [numFiles, label]);
+        });
+
+        $(function () {
+
+            $(':file').on('fileselect', function (event, numFiles, label) {
+
+                var input = $(this).parents('.input-group-btn').find(':text'),
+                    log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+                if (input.length) {
+                    input.val(log);
+                }
+            });
+
+            $('input[type="submit"].btn').on('dblclick',
+                function (event) {
+                    event.preventDefault();
+                });
+        });
+
+        $("#Buscar").click(function () {
+            $("input[type='hidden'][name='Activo]").remove();
+        });
+
+    </script>
+}

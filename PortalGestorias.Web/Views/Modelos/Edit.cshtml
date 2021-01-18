@@ -1,0 +1,172 @@
+﻿@using System.Security.Claims
+@using PortalGestorias.Web.Controllers
+@using PortalGestorias.Web.Security
+
+
+@model PortalGestorias.Domain.Entities.Modelo
+
+@{
+    ViewBag.Title = "John Deere - Sistema de Inventario ::: Modelo";
+    <style type="text/css">
+        label {
+            text-align: left !important;
+        }
+    </style>
+
+    var listadoProductos = ViewBag.ListadoProductos != null && ViewBag.ListadoProductos;
+    var viewOnly = ViewBag.ViewOnly != null && ViewBag.ViewOnly;
+
+    var title = "Editar";
+    var action = "Edit";
+
+    if (Model.Id <= 0)
+    {
+        title = "Crear";
+        action = "Create";
+    }
+
+    var redirectToProductos = ViewBag.redirectToProductos != null && ViewBag.redirectToProductos;
+    dynamic htmlAttributes = new { @class = "form-control" };
+    dynamic htmlAttributesMarca = new { @class = "form-control", data_val = "true", data_val_required = $"El campo Marca es obligatorio." };
+    dynamic htmlAttributesTipoModelo = new { @class = "form-control", data_val = "true", data_val_required = $"El campo Tipo de Modelo es obligatorio." };
+
+
+    if (viewOnly)
+    {
+        htmlAttributes = new { @class = "form-control", disabled = "disabled" };
+        htmlAttributesMarca = new { @class = "form-control", disabled = "disabled", data_val = "true", data_val_required = $"El campo Marca es obligatorio." };
+        htmlAttributesTipoModelo = new { @class = "form-control", disabled = "disabled", data_val = "true", data_val_required = $"El campo Tipo de Modelo es obligatorio." };
+
+    }
+    var user = User as ClaimsPrincipal;
+}
+
+@using (Html.BeginForm(action, Controllers.Modelos, FormMethod.Post, new { idMarca = Model.Marca?.Id }))
+{
+    @Html.AntiForgeryToken()
+
+    if (ViewBag.idAlmacen != null)
+    {
+        @Html.Hidden("idAlmacen", (string)ViewBag.idAlmacen.ToString())
+    }
+
+    if (ViewBag.idUbicacion != null)
+    {
+        @Html.Hidden("idUbicacion", (string)ViewBag.idUbicacion.ToString())
+    }
+
+    if (ViewBag.idStockRoom != null)
+    {
+        @Html.Hidden("idStockRoom", (string)ViewBag.idStockRoom.ToString())
+    }
+
+    if (ViewBag.idTipo!= null)
+    {
+        @Html.Hidden("idTipo", (string)ViewBag.idTipo.ToString())
+    }
+
+    if (ViewBag.redirectToProductos != null)
+    {
+        @Html.Hidden("redirectToProductos", (string)ViewBag.redirectToProductos.ToString())
+    }
+
+
+    <div class="form-horizontal">
+
+        <div class="col-md-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb custom-breadcrumb">
+                    <li class="breadcrumb-item titulo1">@Html.ActionLink("SISTEMAS", "Index", "Home")</li>
+                    <li class="breadcrumb-item titulo1">@Html.ActionLink("MANTENIMIENTO MODELOS", "Index", "Modelos")</li>
+                    <li class="breadcrumb-item titulo1 active">@ViewBag.Titulo.ToUpper()</li>
+                </ol>
+            </nav>
+        </div>
+
+
+        <div class="col-md-9">
+            @*@Html.ValidationSummary(false, "", new { @class = "text-danger" })*@
+            @Html.HiddenFor(model => model.Id)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-1 col-md-offset-1" })<span class="mandatory">*</span>
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Nombre, new { htmlAttributes })
+                    @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Marca.Nombre, htmlAttributes: new { @class = "control-label col-md-1 col-md-offset-1" })<span class="mandatory">*</span>
+                <div class="col-md-3">
+                    @Html.DropDownList("idMarca", (SelectList)ViewData["Marca"], (object)htmlAttributesMarca)
+                    @Html.ValidationMessage("idMarca", "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TipoModelo.Nombre, htmlAttributes: new { @class = "control-label col-md-1 col-md-offset-1" })<span class="mandatory">*</span>
+                <div class="col-md-3">
+                    @Html.DropDownList("idTipoModelo", (SelectList)ViewData["TipoModelo"], (object)htmlAttributesTipoModelo)
+                    @Html.ValidationMessage("idTipoModelo", "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Importe, htmlAttributes: new { @class = "control-label col-md-1 col-md-offset-1" })<span class="mandatory">*</span>
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Importe, new { htmlAttributes })
+                    @Html.ValidationMessageFor(model => model.Importe, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Barcode, htmlAttributes: new { @class = "control-label col-md-1 col-md-offset-1" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Barcode, new { htmlAttributes })
+                    @Html.ValidationMessageFor(model => model.Barcode, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    @if (listadoProductos)
+                    {
+                        @Html.ActionLink("Volver al listado de Productos", "Index", "Productos", null, new { @class = "btn btn-default" })
+                    }
+
+                    @if (redirectToProductos)
+                    {
+                        @Html.ActionLink("Volver a la Entrada del Producto", "Create", "Productos", new { idAlmacen = ViewBag.idAlmacen, idTipoModelo = ViewBag.idTipo, idMarca = Model.Marca?.Id, idUbicacion = ViewBag.idUbicacion, idStockRoom = ViewBag.idStockRoom }, new { @class = "btn btn-default" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Volver al listado", "Index", null, new { @class = "btn btn-default" })
+                    }
+
+                    @if (viewOnly && Model.Activo && user.ResourceAccessValidation(DataOperation.Update, Controllers.Modelos))
+                    {
+                        @Html.ActionLink("Editar", "Edit", new { id = Model.Id }, new { @class = "btn btn-jd-new" })
+                    }
+
+                    @if (!viewOnly)
+                    {
+                        <input type="submit" value="Guardar" class="btn btn-jd-new" />
+                    }
+                </div>
+            </div>
+            </div>
+        </div>
+        }
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+            <script type="text/javascript">
+                $(function () {
+                    $('input[type="submit"].btn').on('dblclick',
+                        function (event) {
+                            event.preventDefault();
+                        });
+                });
+            </script>
+        }

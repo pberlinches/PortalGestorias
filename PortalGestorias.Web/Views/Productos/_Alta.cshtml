@@ -1,0 +1,156 @@
+﻿@using System.Security.Claims
+@using PortalGestorias.Web.Controllers
+@using PortalGestorias.Web.Security
+@using PortalGestorias.Domain.Models
+
+@model  List<EntradaProducto>
+
+
+@{
+    var almacenes = ViewBag.Almacenes;
+    var user = User as ClaimsPrincipal;
+    var grid = new WebGrid(columnNames: null, rowsPerPage: (int)ViewBag.AltaRowsPerPage, canSort: false);
+    var viewPath = ViewBag.Path != null;
+    grid.Bind(Model, autoSortAndPage: false, rowCount: (int)ViewBag.AltaTotalRowCount);
+}
+
+
+@using (Html.BeginForm("ImportExcel", "Productos", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="tab-content">
+        <div class="col-md-8 col-md-offset-6">
+            <div class="form-group">
+                <div class="form-inline">
+                    <div class="text-danger col-md-6">
+                        <label class="input-group-btn">
+                            <span class="btn btn-default btn-file">Examinar...<input type="file" name="productos" id="productos" style="display: none;" /></span>
+                            <input class="form-control " type="text" readonly />
+                        </label>
+                        <br>@ViewBag.Message
+                        <br>@ViewBag.RegistrosActualizados
+                        <br>@ViewBag.RegistrosFallidos
+                        <br>
+                        <br>
+                        @if (viewPath && ViewBag.RegistrosFallidos != "Registros Fallidos: 0")
+                        {
+                            <a href='@ViewBag.Path' target="_blank">Ver Informe de Errores</a>
+                            <br>
+                            <br>
+                        }
+
+                    </div>
+                </div>
+                <input type="submit" value="Importar desde Excel" class="btn btn-jd-new" />
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+}
+
+@using (Html.BeginForm("ConfirmarAlta", "Productos", FormMethod.Post, new { id = "altaForm" }))
+{
+    @Html.AntiForgeryToken();
+    <table class="table table-striped">
+        <tr>
+            <td colspan="10" class="table">
+                <input type="submit" value="Confirmar Alta Productos (AM)" name="Alta" id="Alta" class="btn btn-jd-new col-md-offset-10 col-md-2" />
+            </td>
+        </tr>
+        <tr class="jd_webgrid-header">
+            <th>Índice</th>
+            <th  style="visibility:hidden !important; width:0px !important; display:none !important"></th>
+            <th>Almacén</th>
+            <th>Tipo</th>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Departamento</th>
+            <th>Ubicación</th>
+            <th>Código de Barras</th>
+            <th>Nº de Serie</th>
+        </tr>
+
+        @for (int i = 0; i < Model.Count; i++)
+
+        {
+
+            <tr>
+                <td>
+                    @Html.Label("", (i + 1).ToString())
+                </td>
+                <td style="visibility:collapse !important; width:0px !important; display:none !important">
+                    @Html.TextBox("productos[" + @i + "].NumeroPedido",
+                    Model[i].NumeroPedido, new {@readonly="readonly" , @style = "display:none" })
+                </td>
+
+                <td>
+                    @Html.Label("productos[" + @i + "].Almacen.Nombre", Model[i].Almacen.Nombre, new { @class = "altaRow" })
+                    @Html.TextBox("productos[" + @i + "].Almacen.Nombre",
+                    Model[i].Almacen.Nombre, new {@readonly="readonly" , @style = "display:none" })
+                </td>
+
+                <td>
+                    @Html.Label("productos[" + @i + "].TipoModelo.Nombre", Model[i].TipoModelo.Nombre, new { @class = "altaRow" })
+                    @Html.TextBox("productos[" + @i + "].TipoModelo.Nombre",
+                    Model[i].TipoModelo.Nombre, new {@readonly="readonly" , @style = "display:none" })
+                </td>
+
+                <td>
+                    @Html.Label("productos[" + @i + "].Marca.Nombre", Model[i].Marca.Nombre, new { @class = "altaRow" })
+                    @Html.TextBox("productos[" + @i + "].Marca.Nombre",
+                    Model[i].Marca.Nombre, new {@readonly="readonly" , @style = "display:none" })
+                </td>
+
+                <td>
+                    @Html.Label("productos[" + @i + "].Modelo.Nombre", Model[i].Modelo.Nombre, new { @class = "altaRow" })
+                    @Html.TextBox("productos[" + @i + "].Modelo.Nombre",
+                    Model[i].Modelo.Nombre, new {@readonly="readonly" , @style = "display:none" })
+                </td>
+
+                <td>
+                    @Html.Label("productos[" + @i + "].StockRoom.Codigo", Model[i].StockRoom.Codigo, new { @class = "altaRow" })
+                    @Html.TextBox("productos[" + @i + "].StockRoom.Codigo",
+                    Model[i].StockRoom.Codigo, new {@readonly="readonly" , @style = "display:none" })
+                </td>
+
+                <td>
+                    @Html.Label("productos[" + @i + "].Ubicacion.Nombre", Model[i].Ubicacion.Nombre, new { @class = "altaRow" })
+                    @Html.TextBox("productos[" + @i + "].Ubicacion.Nombre",
+                    Model[i].Ubicacion.Nombre, new {@readonly="readonly" , @style = "display:none" })
+                </td>
+
+                <td>
+                    @Html.TextBox("productos[" + @i + "].CodigoBarras",
+                    Model[i].CodigoBarras, new { @class="form-control"})
+                    @Html.ValidationMessage("productos[" + @i + "].CodigoBarras", "", new { @class = "text-danger" })
+
+                </td>
+
+                <td>
+                    @Html.TextBox("productos[" + @i + "].NumeroSerie",
+                    Model[i].NumeroSerie, new { @class = "form-control" })
+                    @Html.ValidationMessage("productos[" + @i + "].NumeroSerie", "", new { @class = "text-danger", @id = "productos[" + @i + "].NumeroSerie" })
+                </td>
+            </tr>
+        }
+
+
+
+
+    </table>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+
+
+    </script>
+}
+
+

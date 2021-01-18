@@ -1,0 +1,125 @@
+﻿@using System.Security.Claims
+@using PortalGestorias.Web.Controllers
+@using PortalGestorias.Web.Security
+
+@{
+    var user = User as ClaimsPrincipal;
+    var controllerName = ViewContext.RouteData.Values["controller"].ToString();
+    var BachTareasActive = controllerName.Equals(Controllers.BatchTareas, StringComparison.InvariantCultureIgnoreCase) ? "active" : "";
+}
+
+@{
+    ViewBag.Application = "John Deere - Sistema de Inventario";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+
+    @Styles.Render("~/Content/css")
+    @RenderSection("styles", required: false)
+    @Scripts.Render("~/bundles/modernizr")
+    <script type='text/javascript'>
+        var appInsights = window.appInsights || function (config) {
+            function r(config) { t[config] = function () { var i = arguments; t.queue.push(function () { t[config].apply(t, i) }) } }
+            var t = { config: config }, u = document, e = window, o = 'script', s = u.createElement(o), i, f; for (s.src = config.url || '//az416426.vo.msecnd.net/scripts/a/ai.0.js', u.getElementsByTagName(o)[0].parentNode.appendChild(s), t.cookie = u.cookie, t.queue = [], i = ['Event', 'Exception', 'Metric', 'PageView', 'Trace', 'Ajax']; i.length;)r('track' + i.pop()); return r('setAuthenticatedUserContext'), r('clearAuthenticatedUserContext'), config.disableExceptionTracking || (i = 'onerror', r('_' + i), f = e[i], e[i] = function (config, r, u, e, o) { var s = f && f(config, r, u, e, o); return s !== !0 && t['_' + i](config, r, u, e, o), s }), t
+        }({
+            instrumentationKey: '{your-key}'
+        });
+
+        window.appInsights = appInsights;
+        appInsights.trackPageView();
+    </script>
+</head>
+<body>
+    @if (bool.Parse(System.Configuration.ConfigurationManager.AppSettings["EsEntornoPruebas"]))
+    {
+        <div class="navbar text-danger text-center"><h4>ENTORNO PRUEBAS</h4></div>
+    }
+    <nav class="navbar navbar-fixed-top custom-navbar-header">
+        <div class="container-fluid" style="width:100%">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle custom-navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="@Url.Action("Index","Home")" class="navbar-brand" style="padding: 0"><img src="~/img/PortalGestorias_logo.png" height="50" /></a>
+            </div>
+            <div class="navbar-collapse collapse" id="myNavbar">
+                <ul class="nav navbar-nav menu">
+                    @if (user.IsInRole(AppRoles.GestorModificacion) || user.IsInRole(AppRoles.GestorEmpleado))
+                    {
+                        <li>@Html.ActionLinkAuthorize("SISTEMAS", "Index", Controllers.Home, user.GetAuthContext(DataOperation.Read, Controllers.Home), null)</li>
+
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">MANTENIMIENTOS<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLinkAuthorize("ESTADOS", "Index", Controllers.Estados, user.GetAuthContext(DataOperation.Read, Controllers.Estados), null)</li>
+                                <li>@Html.ActionLinkAuthorize("MARCAS", "Index", Controllers.Marcas, user.GetAuthContext(DataOperation.Read, Controllers.Marcas), null)</li>
+                                <li>@Html.ActionLinkAuthorize("MODELOS", "Index", Controllers.Modelos, user.GetAuthContext(DataOperation.Read, Controllers.Modelos), null)</li>
+                                <li>@Html.ActionLinkAuthorize("TIPOS DE MODELO", "Index", Controllers.TiposModelos, user.GetAuthContext(DataOperation.Read, Controllers.TiposModelos), null)</li>
+                                <li>@Html.ActionLinkAuthorize("UBICACIONES", "Index", Controllers.Ubicaciones, user.GetAuthContext(DataOperation.Read, Controllers.Ubicaciones), null)</li>
+
+                            </ul>
+                        </li>
+                    }
+
+                        @if (user.IsInRole(AppRoles.GestorEmpleado))
+                        {
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ADMIN<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLinkAuthorize("USUARIOS", "Index", Controllers.Empleados, user.GetAuthContext(DataOperation.Update, Controllers.Empleados), null)</li>
+                                </ul>
+                            </li>
+                        }
+                    </ul>
+
+                @Html.Partial("_LoginPartial")
+</div>
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+    </div>
+
+
+    @*<div class="navbar navbar-fixed-bottom custom-navbar-fixed-bottom">
+            &copy; NCS-Spain
+        </div>*@
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/datetime")
+    @Scripts.Render("~/bundles/globalize")
+    @Scripts.Render("~/bundles/app")
+    @RenderSection("scripts", required: false)
+
+
+    <script type="text/javascript">
+        $(function () {
+            Globalize.culture("es-ES");
+
+            try {
+                $.validator.methods.date = function (value, element) {
+                    return this.optional(element) || Globalize.parseDate(value) != null;
+                };
+                $.validator.methods.number = function (value, element) {
+                    return this.optional(element) || /^-?(?:\d+|\d{1,3}(?:.\d{3})+)(?:\,\d+)?$/.test(value);
+                };
+            }
+            catch (err) {
+            }
+
+            $('legend').click(function () {
+                $(this).parent().find('.form-horizontal').slideToggle("fast");
+            });
+        });
+    </script>
+</body>
+</html>

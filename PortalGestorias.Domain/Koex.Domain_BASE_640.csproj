@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{838382DF-EECC-48AF-A39C-0AD2B28C8C45}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GdP.Domain</RootNamespace>
+    <AssemblyName>GdP.Domain</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ClassNameAttribute.cs" />
+    <Compile Include="Commons\AppRoles.cs" />
+    <Compile Include="DescriptionAttribute.cs" />
+    <Compile Include="Entities\Ausencia.cs" />
+    <Compile Include="Entities\AusenciaWF.cs" />
+    <Compile Include="Entities\BatchTarea.cs" />
+    <Compile Include="Entities\BatchTipoTarea.cs" />
+    <Compile Include="Entities\BusinessEntity.cs" />
+    <Compile Include="Entities\Calendario.cs" />
+    <Compile Include="Entities\DatoMaestro.cs" />
+    <Compile Include="Entities\Departamento.cs" />
+    <Compile Include="Entities\DireccionPostal.cs" />
+    <Compile Include="Entities\Empleado.cs" />
+    <Compile Include="Entities\Estado.cs" />
+    <Compile Include="Entities\Festivo.cs" />
+    <Compile Include="Entities\GrupoDatosMaestros.cs" />
+    <Compile Include="Entities\Localizaciones.cs" />
+    <Compile Include="Entities\Proyecto.cs" />
+    <Compile Include="Entities\Saldo.cs" />
+    <Compile Include="Entities\SaldoCalendario.cs" />
+    <Compile Include="Entities\TipoAusencia.cs" />
+    <Compile Include="Entities\TrackeableEntity.cs" />
+    <Compile Include="Entities\TrackeableEntityExtensions.cs" />
+    <Compile Include="Models\AprobacionSearchModel.cs" />
+    <Compile Include="Models\ParAusenciasNoJustificadas.cs" />
+    <Compile Include="Models\ParAusenciasPorEmpleado.cs" />
+    <Compile Include="Models\ParAusenciasPorTipo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

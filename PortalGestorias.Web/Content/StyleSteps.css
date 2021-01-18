@@ -1,0 +1,530 @@
+﻿
+.fL, .floatL, .fl {
+    float: left;
+}
+
+.dIB {
+    display: inline-block;
+}
+
+.mR30 {
+    margin-right: 30px;
+}
+
+.h_duedate {
+    color: #fff;
+    position: relative;
+    background: #BDAD92;
+    font-size: 11px;
+    height: 15px;
+    padding-left: 6px;
+    text-align: left;
+    display: inline-block;
+    position: relative;
+    text-transform: uppercase;
+    font-size: 10px;
+    line-height: 16px;
+    padding: 0 5px;
+    min-width: 35px;
+}
+
+.h_overdue {
+    background: #ec7e7d;
+}
+
+.h_overdue:after {
+    border-color: #ec7e7d transparent #ec7e7d #ec7e7d;
+}
+
+.contactlogo:before {
+    content: '';
+    background: url(../img/svgicons.svg) no-repeat -260px -327px !important;
+    width: 17px;
+    height: 14px;
+    display: inline-block;
+    position: absolute;
+    top: 2px;
+    left: 3px;
+    border-radius: 0 !important;
+}
+
+
+.pR, .posRel, .posrel {
+    position: relative;
+}
+
+.select2-hidden-accessible {
+    border: 0 !important;
+    clip: rect(0 0 0 0) !important;
+    height: 1px !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    position: absolute !important;
+    width: 1px !important;
+}
+
+#stageContain .Deal-stage {
+    height: 110px;
+    line-height: 94px;
+    padding-right: 20px;
+    position: absolute;
+    color: #333;
+    background-color: #fff;
+    left: 0;
+}
+
+#stageContain .lineStage {
+    height: 110px;
+    line-height: 85px;
+    margin: 0;
+    padding: 0 5px 0 55px;
+    list-style: none;
+    box-sizing: border-box;
+    font-size: 0;
+}
+
+#stageContain .graph:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 46px;
+    bottom: 38px;
+    left: 55px;
+    width: calc(100% - 170px);
+    box-sizing: border-box;
+    height: 1px;
+    background: #e3e3e3;
+}
+
+.sToolTipBottom {
+    position: absolute;
+    top: 30px;
+    line-height: initial;
+    width: auto;
+    white-space: nowrap;
+    left: -10px;
+    font-size: 13px;
+    font-family: proximaNovaRegular;
+    cursor: pointer;
+}
+
+#stageContain .graph .order-step.enable.stageLessten, #stageContain .graph .order-step.enable.stageLesstwenty {
+    width: 18px !important;
+    height: 18px !important;
+    border: 2px #7abc64 solid !important;
+    border-radius: 50%;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    background-color: #fff;
+    padding: 0;
+    margin-top: 7px;
+}
+
+    #stageContain .graph .order-step.enable.stageLessten:after {
+        content: '';
+        background: url(../img/svgicons.svg) no-repeat -260px -327px !important;
+        width: 11px !important;
+        height: 8px;
+        display: inline-block;
+        position: absolute;
+        top: 3px;
+        left: 1px;
+    }
+
+#stageContain .graph .order-step.enable {
+    width: 3px;
+    height: 3px;
+    border: 1px #7abc64 solid;
+    border-radius: 50%;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    background-color: #7abc64;
+    padding: 0;
+    margin-top: 8px;
+    zoom: 1;
+    vertical-align: middle;
+}
+
+.sToolTipBottom select {
+    opacity: 0;
+}
+
+.sToolTipBottom span.select2 {
+    text-align: left;
+}
+
+#stageContain .order-step .Stooltip {
+    padding: 1px 8px;
+    height: 21px;
+    line-height: 21px;
+    z-index: 10;
+    position: absolute;
+    white-space: nowrap;
+    top: -35px;
+    display: block !important;
+    font-size: 11px;
+    background-color: #424242;
+    color: #fff;
+    text-shadow: 0 1px 0 #000;
+    left: -36px;
+    border-radius: 3px;
+    word-break: keep-all;
+    opacity: 0;
+}
+
+#stageContain .graph .order-step.enable:before {
+    content: '';
+    width: 11px;
+    height: 8px;
+    display: inline-block;
+    position: absolute;
+    top: 5px;
+    left: 3px;
+}
+
+#stageContain .graph .order-step.enable:before {
+    content: '';
+    width: 10px;
+    height: 7px;
+    display: inline-block;
+    position: absolute;
+    top: 6px;
+    left: 4px;
+}
+
+#stageContain .lineStage .order-step {
+    cursor: pointer;
+}
+
+.hideEnabled {
+    display: none !important;
+}
+
+#stageContain .graph .order-step.active:not(.stageLessten) {
+    width: 19px !important;
+    height: 19px !important;
+    border: 2px #7abc64 solid;
+    border-radius: 50%;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    background-color: #fff;
+    padding: 0;
+    margin-top: 8px;
+    zoom: 1;
+    vertical-align: middle;
+    transform: scale(1) !important;
+}
+
+#stageContain .graph .order-step.active.stageLessten {
+    width: 22px !important;
+    height: 22px !important;
+    border: 2px #7abc64 solid;
+    border-radius: 50%;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    background-color: #fff;
+    padding: 0;
+    box-shadow: 0 0 0 2px #fff;
+    margin-top: 6px;
+    zoom: 1;
+    vertical-align: middle;
+}
+
+#stageContain .graph .order-step.active.PStageclosedWon.stageLessten {
+    border: 2px #5bd6f1 solid !important;
+}
+
+#stageContain .graph .order-step.inactive.active {
+    width: 19px;
+    height: 19px;
+    border: 2px #7abc64 solid;
+    border-radius: 50%;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    background-color: #fff;
+    padding: 0;
+    box-shadow: 0 0 0 2px #fff;
+    margin-top: 6px;
+    zoom: 1;
+    vertical-align: middle;
+}
+
+li.order-step:not(.stageLesstwenty):not(.stageLessten) {
+    transition: .3s ease-out all;
+}
+
+li.order-step:not(.stageLessten):after {
+    position: absolute;
+    content: '';
+    width: 50px;
+    height: 50px;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+}
+
+#stageContain .graph .order-step.active:not(.stageLessten):not(.stageLesstwenty):not(.PStageclosedWon):not(.PStageclosedLost):before {
+    content: '';
+    background-color: #7abc64;
+    border-radius: 50%;
+    width: 15px !important;
+    height: 15px !important;
+    display: inline-block;
+    position: absolute;
+    top: 2px !important;
+    left: 2px !important;
+    transition: 300ms ease-out all;
+}
+
+#stageContain .graph .order-step.active.stageLessten {
+    box-sizing: border-box;
+}
+
+    #stageContain .graph .order-step.active.stageLessten:before {
+        content: '';
+        background-color: #7abc64;
+        border-radius: 50%;
+        width: 12px;
+        height: 12px;
+        display: inline-block;
+        position: absolute;
+        top: 3px;
+        left: 3px;
+    }
+
+#stageContain .graph .order-step.inactive.stageLesstwenty {
+    background-color: #cbcbcb !important;
+}
+
+#stageContain .graph .order-step.active.wh19Class:before, #stageContain .graph .order-step.active.stageLesstwenty:not(.PStageclosedLost):before {
+    content: '';
+    background-color: #7abc64;
+    border-radius: 50%;
+    width: 15px !important;
+    height: 15px !important;
+    display: inline-block;
+    position: absolute;
+    top: 2px !important;
+    left: 2px !important;
+    transition: 300ms all;
+}
+
+.stageLesstwenty:before {
+    transition: none !important;
+}
+
+#stageContain .graph .order-step.active.stageLesstwenty.PStageclosedLost:before {
+    top: 3px !important;
+    left: 2px !important;
+}
+
+#stageContain .graph .order-step.inactive.stageLessten, #stageContain .graph .order-step.inactive.stageLesstwenty {
+    width: 20px !important;
+    height: 20px !important;
+    border: 1px #cbcbcb solid;
+    border-radius: 50%;
+    display: inline-block;
+    text-align: center;
+    z-index: 1;
+    position: relative;
+    background-color: #fff;
+    padding: 0;
+    margin-top: 6px;
+    zoom: 1;
+    vertical-align: middle;
+}
+
+#stageContain .graph .order-step.inactive.stageLesstwenty {
+    width: 11px !important;
+    height: 11px !important;
+    box-sizing: border-box;
+}
+
+#stageContain .graph .order-step.inactive:not(.stageLessten):not(.stageLesstwenty) {
+    width: 3px;
+    height: 3px;
+    border: 1px #cbcbcb solid;
+    border-radius: 50%;
+    display: inline-block;
+    text-align: center;
+    z-index: 1;
+    position: relative;
+    background-color: #cecece;
+    padding: 0;
+    margin-top: 8px;
+    zoom: 1;
+    vertical-align: middle;
+}
+
+.wh11Class {
+    width: 11px !important;
+    height: 11px !important;
+}
+
+.wh7Class {
+    width: 9px !important;
+    height: 9px !important;
+}
+
+#stageContain .lineStage .order-step.stageLesstwenty.wh19Class, .wh19Class {
+    width: 19px !important;
+    height: 19px !important;
+}
+
+#stageContain .graph .order-step.PStageclosedWon:not(.stageLessten) {
+    ;
+    border: 1px #5bd6f1 solid !important;
+    background-color: #5bd6f1 !important;
+    vertical-align: middle;
+}
+
+#stageContain .graph .order-step.PStageclosedWon.active:not(.stageLessten) {
+    background-color: #fff !important;
+}
+
+#stageContain .graph .order-step.PStageclosedLost.enable, #stageContain .graph .order-step.PStageclosedWon.enable {
+    width: 18px !important;
+    height: 18px !important;
+}
+
+#stageContain .graph .order-step.active.PStageclosedLost {
+    border: 2px #EF7878 solid;
+}
+
+#stageContain .graph .order-step.active.PStageclosedWon:not(.stageLessten) {
+    border: 2px #5bd6f1 solid !important;
+}
+
+.PStageclosedWon.active, #stageContain .graph .order-step.active.PStageclosedLost {
+    backgroud-color: transparent !important;
+}
+
+li.order-step.PStageclosedLost.inactive:not(.stageLessten), #stageContain li.order-step.PStageclosedLost.inactive.stageLesstwenty {
+    background-color: #d44f4f !important;
+    border: 1px #d44f4f solid !important;
+}
+
+#stageContain .graph .order-step.inactive.PStageclosedWon:before {
+    content: '';
+    width: 17px;
+    height: 14px;
+    display: inline-block;
+    position: absolute;
+    top: 2px;
+    left: 4px;
+    border-radius: 0 !important;
+}
+
+#stageContain .graph .order-step.inactive.PStageclosedWon.stageLessten:before {
+    background: url('../img/svgicons.svg') no-repeat -279px -964px !important;
+}
+
+#stageContain .graph .order-step.active.PStageclosedWon:before {
+    content: '';
+    background: url('../img/svgicons.svg') no-repeat -115px -1990px !important;
+    width: 17px;
+    height: 14px;
+    display: inline-block;
+    position: absolute;
+    top: 2px;
+    left: 3px;
+    border-radius: 0 !important;
+}
+
+#stageContain .graph .order-step.active.PStageclosedWon:not(.stageLessten):not(.stageLesstwenty):before {
+    top: 2px !important;
+}
+
+#stageContain .graph .order-step.active.PStageclosedWon.stageLesstwenty:before, #stageContain .graph .order-step.active.PStageclosedWon:not(.stageLessten):before {
+    left: 3px !important;
+}
+
+#stageContain .graph .order-step.inactive.PStageclosedLost:before {
+    content: '';
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    position: absolute;
+    top: 5px;
+    left: 3px;
+    border-radius: 0 !important;
+}
+
+#stageContain .graph .order-step.inactive.PStageclosedLost.stageLessten:before {
+    background: url('../img/svgicons.svg') no-repeat -256px -964px !important;
+}
+
+.sToolTipBottom .select2-selection__rendered {
+    padding-right: 6px !important;
+}
+
+#stageContain .graph .order-step.active.PStageclosedLost:before {
+    content: '';
+    background: url('../img/svgicons.svg') no-repeat -55px -944px;
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    position: absolute;
+    top: 3px;
+    left: 2px;
+    border-radius: 0 !important;
+}
+
+#stageContain .Deal-date {
+    width: 105px;
+    height: 110px;
+    float: left;
+    color: #333;
+    font-size: 13px !important;
+    line-height: 93px;
+    background-color: transparent;
+    position: relative;
+    z-index: 13;
+}
+
+    #stageContain .Deal-date #stageIndicator_CLOSINGDATE:after {
+        content: '';
+        position: absolute;
+        background: url('../img/svgicons.svg') no-repeat -265px -401px;
+        width: 11px;
+        height: 7px;
+        display: inline-block;
+        top: 42px;
+        right: -16px;
+        cursor: pointer;
+        opacity: .6;
+    }
+
+
+
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        line-height: normal;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    background: url(../img/svgicons.svg) no-repeat -36px -939px;
+    width: 9px;
+    height: 4px;
+    position: static;
+    display: inline-block;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+
+
+
+

@@ -1,0 +1,37 @@
+﻿@using System.Security.Claims
+@using PortalGestorias.Domain.Entities
+@using PortalGestorias.Web.Controllers
+@using PortalGestorias.Web.Security
+@model IEnumerable<DatoMaestro>
+
+@{
+    ViewBag.Title = "Listado de Datos Maestros";
+
+    var user = User as ClaimsPrincipal;
+
+    var gridDatos = new WebGrid(rowsPerPage: (int)ViewBag.RowsPerPage, canSort: false, pageFieldName: "pageDato");
+    gridDatos.Bind(Model, autoSortAndPage: false, rowCount: (int)ViewBag.TotalRowCount);
+    var columns = new List<WebGridColumn>
+    {
+        gridDatos.Column("", "Grupo", @<text>@Html.ActionLink((string)item.Grupo.Nombre, "Details", new { idCode = item.IdCode, idGrupo = item.IdGrupo })</Text>),
+        Html.Column(model => model.Value, header: "Dato"),
+        Html.Column(model => model.Metadata, header: "Metadatos"),
+        gridDatos.Column("", "", @<text>@( item.Activo ? Html.ActionLinkAuthorize(" ", "DeleteDatoMaestro", user.GetAuthContext(DataOperation.Delete, Controllers.Calendarios), new {idCode = item.IdCode, idGrupo = item.IdGrupo }, new {@class = "fa fa-trash", aria_hidden = "true"}) : Html.Raw("Baja"))</text>),
+
+                                    
+    };
+}
+<div id="title">
+    <h3>Lista de Tipos de Grupo</h3>
+    @Html.ActionLinkAuthorize("+ Grupo", "CreateGrupo", user.GetAuthContext(DataOperation.Create, Controllers.Maestros), null, new { @class = "btn btn-primary" })
+</div>
+
+<div id="listado">
+@Html.Partial("_GridGruposDatos", (IEnumerable<GrupoDatosMaestros>)ViewBag.Grupos)
+</div>
+
+<div id="title">
+    <h3>Lista de Grupos</h3>
+    @Html.ActionLinkAuthorize("+ Dato Maestro", "Create", user.GetAuthContext(DataOperation.Create, Controllers.Maestros), null, new { @class = "btn btn-primary" })
+</div>
+    @gridDatos.GetHtml(tableStyle: "table table-striped", columns: columns)

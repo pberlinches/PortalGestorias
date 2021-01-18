@@ -1,0 +1,1045 @@
+/*! HTML5 Boilerplate v5.3.0 | MIT License | https://html5boilerplate.com/ */
+
+/*
+ * What follows is the result of much research on cross-browser styling.
+ * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
+ * Kroc Camen, and the H5BP dev community and team.
+ */
+
+/* ==========================================================================
+   Base styles: opinionated defaults
+   ========================================================================== */
+
+
+
+@font-face {
+	font-family: 'Raleway';
+	src: url('fonts/Raleway-Thin.ttf') format('truetype');
+	font-weight: 100;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Raleway';
+	src: url('fonts/Raleway-ExtraLight.ttf') format('truetype');
+	font-weight: 200;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Raleway';
+	src: url('fonts/Raleway-Light.ttf') format('truetype');
+	font-weight: 300;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Raleway';
+	src: url('fonts/Raleway-Regular.ttf') format('truetype');
+	font-weight: 400;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Raleway';
+	src: url('fonts/Raleway-Medium.ttf') format('truetype');
+	font-weight: 500;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Raleway';
+	src: url('fonts/Raleway-SemiBold.ttf') format('truetype');
+	font-weight: 600;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Raleway';
+	src: url('fonts/Raleway-Bold.ttf') format('truetype');
+	font-weight: 700;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Raleway';
+	src: url('fonts/Raleway-ExtraBold.ttf') format('truetype');
+	font-weight: 800;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Raleway';
+	src: url('fonts/Raleway-Black.ttf') format('truetype');
+	font-weight: 900;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Raleway';
+	src: url('fonts/Raleway-ThinItalic.ttf') format('truetype');
+	font-weight: 100;
+	font-style: italic;
+}
+@font-face {
+	font-family: 'Raleway';
+	src: url('fonts/Raleway-ExtraLightItalic.ttf') format('truetype');
+	font-weight: 200;
+	font-style: italic;
+}
+@font-face {
+	font-family: 'Raleway';
+	src: url('fonts/Raleway-LightItalic.ttf') format('truetype');
+	font-weight: 300;
+	font-style: italic;
+}
+@font-face {
+	font-family: 'Raleway';
+	src: url('fonts/Raleway-Italic.ttf') format('truetype');
+	font-weight: 400;
+	font-style: italic;
+}
+@font-face {
+	font-family: 'Raleway';
+	src: url('fonts/Raleway-MediumItalic.ttf') format('truetype');
+	font-weight: 500;
+	font-style: italic;
+}
+@font-face {
+	font-family: 'Raleway';
+	src: url('fonts/Raleway-SemiBoldItalic.ttf') format('truetype');
+	font-weight: 600;
+	font-style: italic;
+}
+@font-face {
+	font-family: 'Raleway';
+	src: url('fonts/Raleway-BoldItalic.ttf') format('truetype');
+	font-weight: 700;
+	font-style: italic;
+}
+@font-face {
+	font-family: 'Raleway';
+	src: url('fonts/Raleway-ExtraBoldItalic.ttf') format('truetype');
+	font-weight: 800;
+	font-style: italic;
+}
+@font-face {
+	font-family: 'Raleway';
+	src: url('fonts/Raleway-BlackItalic.ttf') format('truetype');
+	font-weight: 900;
+	font-style: italic;
+}
+
+
+html {
+    color: #222;
+    font-size: 1em;
+    line-height: 1.4;
+	font-family: 'Raleway', sans-serif;
+}
+
+a { color: #E51C20; }
+
+/*
+ * Remove text-shadow in selection highlight:
+ * https://twitter.com/miketaylr/status/12228805301
+ *
+ * These selection rule sets have to be separate.
+ * Customize the background color to match your design.
+ */
+
+::-moz-selection {
+    background: #E51C20;
+	color: #fff;
+    text-shadow: none;
+}
+
+::selection {
+    background: #E51C20;
+	color: #fff;
+    text-shadow: none;
+}
+
+/*
+ * A better looking default horizontal rule
+ */
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+/*
+ * Remove the gap between audio, canvas, iframes,
+ * images, videos and the bottom of their containers:
+ * https://github.com/h5bp/html5-boilerplate/issues/440
+ */
+
+audio,
+canvas,
+iframe,
+img,
+svg,
+video {
+    vertical-align: middle;
+}
+
+/*
+ * Remove default fieldset styles.
+ */
+
+fieldset {
+    border: 1px solid red;
+    margin: 0;
+    padding: 10px;
+}
+
+fieldset > legend {
+    padding: 0 7px;
+    cursor: pointer;
+}
+
+fieldset > div.form-horizontal {
+    display: none;        
+}
+
+fieldset > div.form-horizontal.extended {
+    display: block;
+}
+
+
+fieldset > div.form-horizontal.multicolumn { float: left; width: 25%; margin-bottom: 15px; }
+
+fieldset > div.form-horizontal.multicolumn input, div.form-horizontal.multicolumn select {
+    width: 80% !important;
+}
+
+fieldset > div.form-horizontal.multicolumn input[type='checkbox'] {
+    width: auto !important;
+}
+        /*
+ * Allow only vertical resizing of textareas.
+ */
+        textarea {
+        resize: vertical;
+    }
+
+/* ==========================================================================
+   Browser Upgrade Prompt
+   ========================================================================== */
+
+.browserupgrade {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
+
+
+/* ==========================================================================
+   GRID - 12col 1180px
+   ========================================================================== */
+
+.container { position: relative; width: 1180px; margin: 0 auto; padding: 0; }
+.container-full-width {
+    position: relative;
+    width: 100% !important;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.column-row, .row { margin: 0 0 0 -20px; }
+.column, .columns { float: left; display: inline; margin: 0 0 0 20px; }
+
+.one { width: 80px; }
+.two { width: 180px; }
+.three { width: 280px; }
+.four { width: 380px; }
+.five { width: 480px; }
+.six { width: 580px; }
+.seven { width: 680px; }
+.eight { width: 780px; }
+.nine { width: 880px; }
+.ten { width: 980px; }
+.eleven { width: 1080px; }
+.twelve { width: 1180px; }
+
+.offset-by-one-half { margin-left: 50px; }
+.offset-by-one { margin-left: 100px; }
+.offset-by-two { margin-left: 200px; }
+.offset-by-three { margin-left: 300px; }
+.offset-by-four { margin-left: 400px; }
+.offset-by-five { margin-left: 500px; }
+.offset-by-six { margin-left: 600px; }
+.offset-by-seven { margin-left: 700px; }
+.offset-by-eight { margin-left: 800px; }
+.offset-by-nine { margin-left: 900px; }
+.offset-by-ten { margin-left: 1000px; }
+
+/* Clear the columns automagically, thanks @kneath */
+.column-row:after, .row:after, .clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+* html .column-row, * html .row, * html .clearfix { height: 1%; }
+.column-row, .row, .clearfix { display: inline-block; }
+.column-row, .row, .clearfix { display: block; }
+
+/* IE6 Problems ---------- */
+body.ie .column-row { width: 1200px; }
+body.ie .eight .column-row { width: 800px; }
+body.ie .nine .column-row { width: 900px; }
+body.ie .ten .column-row { width: 1000px; }
+body.ie .eleven .column-row { width: 1100px; }
+body.ie .two-thirds .column-row { width: 820px; }
+ 
+/* ==========================================================================
+   Custom styles
+   ========================================================================== */
+
+#logo {
+    background: url('../img/logoNcs.png') no-repeat;
+    background-size: 110px;
+    text-indent: -100000000px;
+    overflow: hidden;
+}
+#header-top { padding: 30px 0; }
+#logged-user { color: #616161; font-size: 14px; text-align: right; line-height: 18px; }
+#logged-user p { margin: 0; padding: 0; }
+i.user { width: 36px; height: 36px; background: url('../img/icon-logged-user.png') no-repeat; margin-right: 10px; display: inline-block; float: left; }
+#search { margin-top: -8px; }
+#search input { background: url('../img/icon-search.png') no-repeat center right; border: none; border-bottom: 1px solid #616161; height: 46px; }
+
+#main-nav { background: #f8f7f7; }
+#main-nav nav ul { list-style: none; padding: 0; }
+#main-nav nav ul li { display: table-cell; }
+#main-nav nav ul li a { text-decoration: none; font-weight: 500; color: #8c8c8c; padding: 20px 0; text-align: center; position: relative; }
+#main-nav nav ul li a strong { font-weight: 700; }
+#main-nav nav ul li a.active { color: #ff0005; }
+#main-nav nav ul li a.active:before { content: ""; display: block; position: absolute; width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent; border-top: 10px solid #f8f7f7; margin: 0 auto; left: 50%; z-index: 99999; margin-left: -15px; bottom: -10px; }
+
+
+#sub-nav { background: #ff0005; margin-bottom: 30px; padding: 20px 0; }
+#sub-nav, #sub-nav a { color: #fff; font-size: 15px; padding: 15px 0; text-align: left; text-decoration: none; }
+
+footer { background: #dedede; padding: 20px 0; }
+footer p { text-align: center; color: #a4a3a3; }
+
+.carrusel-item { height: 230px !important; min-height: 230px !important; max-height: 230px !important; }
+.carrusel-item img { position: absolute; object-fit: cover; height: 100%; width: 100%; }
+.carrusel-item h3 { position: absolute; bottom: 0px; text-decoration: none; background: rgba(255,255,255,0.75); padding: 15px; font-size: 18px; color: #3a3a3a; margin: 0; font-weight: 300; }
+
+#home-items { margin-bottom: 50px; }
+#home-items li { background: #ff0000; height: 107px; color: #fff; }
+.tenth { width: 8%; margin: 0px 1%; }
+
+
+.section-header { height: 260px; background-size: cover; }
+.title-header { border-bottom: 3px solid #c8c4c4; }
+.title-header h1 { color: #ff0000; text-align: center; font-size: 24px; }
+
+.titulo { font-size: 28px; font-weight: bold; margin-bottom: 20px; color: #8c8c8c; }
+.titulo-enlaces, .titulo-herramientas, .titulo-documentos { font-size: 27px; font-weight: 100; color: #8c8c8c; padding-left: 40px; }
+.titulo-enlaces { background: url('../img/icono-enlaces.png') no-repeat left; }
+.titulo-herramientas { background: url('../img/icono-herramientas.png') no-repeat left; }
+.titulo-documentos { background: url('../img/icono-documentos.png') no-repeat left; }
+.entradilla, .contenido-noticia, .enlaces-noticia { color: #8c8c8c; font-size: 18px; text-align: justify; }
+.enlaces-noticia ul, .enlaces-noticia li { list-style: none; }
+.enlaces-noticia li { margin-bottom: 10px; }
+.entradilla a, .contenido-noticia a, .enlaces-noticia a { font-weight: bold; color: #8c8c8c; font-weight: 500; }
+
+/* FORMULARIO */
+h4 { font-size: 18px; margin-bottom: 0px; }
+hr { margin: 0; }
+
+label
+{
+    font-size: 14px;
+    color: #000;
+	display: inline-table;
+	width: 50%;
+	vertical-align: top;
+	margin-top: 15px;
+}
+
+label.control-label {
+	font-size: 15px;
+	font-weight: bold;
+}
+
+input, select, .radio_group
+{
+	/*display: inline-table;*/
+	width: 40% !important;
+}
+
+textarea {
+	width: 40% !important;
+	height: 4em;
+	vertical-align: top;
+	margin-bottom: 15px;
+}
+
+input[type="radio"] { width: auto !important; }
+
+input[type="text"], input[type="date"], textarea, input[type="email"], input[type="datetime"], input[type="number"], select {
+    border: 1px solid #DDD;
+    padding: 3px 5px;
+}
+input[type="text"], input[type="date"], input[type="email"], input[type="datetime"], input[type="number"] {
+    height: 21px;
+}
+
+input[data-val-required] + span:before, select[data-val-required] + span:before {
+    font-size: 2em;
+    line-height: 0;
+    content: " * ";
+    color: red;
+}
+
+textarea:focus, input:focus, select:focus
+{
+    border-bottom: 1px solid #E51C20;
+}
+
+*:focus
+{
+    outline: none;
+}
+
+.btn
+{
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+	color: #fff;
+	background-color: #BBBAC3;
+	border-color: #BBBAC3;
+	text-transform: uppercase;
+}
+.btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn.active.focus
+{
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px;
+}
+.btn:hover, .btn:focus, .btn.focus
+{
+    
+    text-decoration: none;
+	color: #fff;
+	background-color: #E51C20;
+	border-color: #E51C20;
+}
+.btn:active, .btn.active
+{
+    background-image: none;
+    outline: 0;
+    -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+}
+.btn.disabled, .btn[disabled], fieldset[disabled] .btn
+{
+    cursor: not-allowed;
+    filter: alpha(opacity=65);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    opacity: .65;
+}
+a.btn.disabled, fieldset[disabled] a.btn
+{
+    pointer-events: none;
+}
+.btn-default
+{
+	color: #fff;
+	background-color: #BBBAC3;
+	border-color: #BBBAC3;
+}
+.btn-default:focus, .btn-default.focus
+{
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #8c8c8c;
+}
+.btn-default:hover
+{
+	color: #fff;
+	background-color: #E51C20;
+	border-color: #E51C20;
+}
+.btn-default:active, .btn-default.active, .open > .dropdown-toggle.btn-default
+{
+	color: #fff;
+	background-color: #E51C20;
+	border-color: #E51C20;
+}
+.btn-default:active:hover, .btn-default.active:hover, .open > .dropdown-toggle.btn-default:hover, .btn-default:active:focus, .btn-default.active:focus, .open > .dropdown-toggle.btn-default:focus, .btn-default:active.focus, .btn-default.active.focus, .open > .dropdown-toggle.btn-default.focus
+{
+	color: #fff;
+	background-color: #E51C20;
+	border-color: #E51C20;
+}
+.btn-default:active, .btn-default.active, .open > .dropdown-toggle.btn-default
+{
+    background-image: none;
+}
+.btn-default.disabled:hover, .btn-default[disabled]:hover, fieldset[disabled] .btn-default:hover, .btn-default.disabled:focus, .btn-default[disabled]:focus, fieldset[disabled] .btn-default:focus, .btn-default.disabled.focus, .btn-default[disabled].focus, fieldset[disabled] .btn-default.focus
+{
+    background-color: #fff;
+    border-color: #ccc;
+}
+.btn-default .badge
+{
+    color: #fff;
+    background-color: #333;
+}
+
+.form-group.col2 { width: 49%; float: left; }
+.form-group.col2-all-width { width: 99%; display: table; }
+.form-group.col2 input, .form-group.col2 textarea, .form-group.col2 select, .form-group.col2 label { width: 90% !important; }
+.form-group.col2 input[type="checkbox"] { width: auto !important; }
+div.form-horizontal > div:last-child { margin-top: 15px; }
+
+/* TABLA - GRID */
+
+  .table {
+    border-collapse: collapse !important;
+  }
+  
+  .table th {
+    background-color: #fff !important;
+  }
+  .table-bordered th,
+  .table-bordered td {
+    border: 1px solid #ddd !important;
+  }
+  .table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .table th,
+  .table td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #eceeef;
+  
+  }
+
+  .table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #eceeef;
+  }
+
+  .table tbody + tbody {
+    border-top: 2px solid #eceeef;
+  }
+  .table tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.05) !important;
+  }
+
+  .table tfoot td {
+      text-align: center;
+  }
+
+  input[type="checkbox"] { width: auto !important}
+
+/* ==========================================================================
+   slider
+   ========================================================================== */
+.slick-slider {
+    position: relative;
+    display: block;
+    box-sizing: border-box;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -khtml-user-select: none;
+    -ms-touch-action: pan-y;
+    touch-action: pan-y;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.slick-list
+{
+    position: relative;
+
+    display: block;
+    overflow: hidden;
+
+    margin: 0;
+    padding: 0;
+}
+.slick-list:focus
+{
+    outline: none;
+}
+.slick-list.dragging
+{
+    cursor: pointer;
+    cursor: hand;
+}
+
+.slick-slider .slick-track,
+.slick-slider .slick-list
+{
+    -webkit-transform: translate3d(0, 0, 0);
+       -moz-transform: translate3d(0, 0, 0);
+        -ms-transform: translate3d(0, 0, 0);
+         -o-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+}
+
+.slick-track
+{
+    position: relative;
+    top: 0;
+    left: 0;
+
+    display: block;
+}
+.slick-track:before,
+.slick-track:after
+{
+    display: table;
+
+    content: '';
+}
+.slick-track:after
+{
+    clear: both;
+}
+.slick-loading .slick-track
+{
+    visibility: hidden;
+}
+
+.slick-slide
+{
+    display: none;
+    float: left;
+
+    height: 100%;
+    min-height: 1px;
+}
+[dir='rtl'] .slick-slide
+{
+    float: right;
+}
+.slick-slide img
+{
+    display: block;
+}
+.slick-slide.slick-loading img
+{
+    display: none;
+}
+.slick-slide.dragging img
+{
+    pointer-events: none;
+}
+.slick-initialized .slick-slide
+{
+    display: block;
+}
+.slick-loading .slick-slide
+{
+    visibility: hidden;
+}
+.slick-vertical .slick-slide
+{
+    display: block;
+
+    height: auto;
+
+    border: 1px solid transparent;
+}
+.slick-arrow.slick-hidden {
+    display: none;
+}
+
+
+.slider {
+    margin: 50px auto;
+}
+
+.slick-slide {
+  margin: 0px 20px;
+overflow: hidden;
+position: relative;
+}
+
+.slick-prev:before,
+.slick-next:before {
+    color: black;
+}
+
+/* Arrows */
+.slick-prev,
+.slick-next
+{
+    font-size: 0;
+    line-height: 0;
+
+    position: absolute;
+    top: 50%;
+
+    display: block;
+
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    -webkit-transform: translate(0, -50%);
+    -ms-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+
+    cursor: pointer;
+
+    color: transparent;
+    border: none;
+    outline: none;
+    background: transparent;
+}
+.slick-prev:hover,
+.slick-prev:focus,
+.slick-next:hover,
+.slick-next:focus
+{
+    color: transparent;
+    outline: none;
+    background: transparent;
+}
+.slick-prev:hover:before,
+.slick-prev:focus:before,
+.slick-next:hover:before,
+.slick-next:focus:before
+{
+    opacity: 1;
+}
+.slick-prev.slick-disabled:before,
+.slick-next.slick-disabled:before
+{
+    opacity: .25;
+}
+
+.slick-prev:before,
+.slick-next:before
+{
+    font-family: 'slick';
+    font-size: 20px;
+    line-height: 1;
+
+    opacity: .75;
+    color: white;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.slick-prev
+{
+    left: -25px;
+}
+[dir='rtl'] .slick-prev
+{
+    right: -25px;
+    left: auto;
+}
+.slick-prev:before
+{
+    content: '←';
+}
+[dir='rtl'] .slick-prev:before
+{
+    content: '→';
+}
+
+.slick-next
+{
+    right: -25px;
+}
+[dir='rtl'] .slick-next
+{
+    right: auto;
+    left: -25px;
+}
+.slick-next:before
+{
+    content: '→';
+}
+[dir='rtl'] .slick-next:before
+{
+    content: '←';
+}
+
+/* Dots */
+.slick-dotted.slick-slider
+{
+    margin-bottom: 100px;
+}
+
+.slick-dots
+{
+    position: absolute;
+    bottom: -50px;
+
+    display: block;
+
+    width: 100%;
+    padding: 0;
+    margin: 0;
+
+    list-style: none;
+
+    text-align: center;
+}
+.slick-dots li
+{
+    position: relative;
+
+    display: inline-block;
+
+    width: 20px;
+    height: 20px;
+    margin: 0 5px;
+    padding: 0;
+
+    cursor: pointer;
+}
+.slick-dots li button
+{
+    font-size: 0;
+    line-height: 0;
+
+    display: block;
+
+    width: 20px;
+    height: 20px;
+    padding: 5px;
+
+    cursor: pointer;
+
+    color: transparent;
+    border: 0;
+    outline: none;
+    background: transparent;
+}
+.slick-dots li button:hover,
+.slick-dots li button:focus
+{
+    outline: none;
+}
+.slick-dots li button:hover:before,
+.slick-dots li button:focus:before
+{
+    opacity: 1;
+}
+.slick-dots li button:before
+{
+    font-family: 'slick';
+    font-size: 40px;
+    line-height: 20px;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 20px;
+    height: 20px;
+
+    content: '•';
+    text-align: center;
+
+    opacity: .25;
+    color: #a8a8a8;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.slick-dots li.slick-active button:before
+{
+    opacity: .75;
+    color: #ff0000;
+}
+
+
+/* ==========================================================================
+   Helper classes
+   ========================================================================== */
+
+/*
+ * Hide visually and from screen readers
+ */
+
+.hidden {
+    display: none !important;
+}
+
+/*
+ * Hide only visually, but have it available for screen readers:
+ * http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+ */
+
+.visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+/*
+ * Extends the .visuallyhidden class to allow the element
+ * to be focusable when navigated to via the keyboard:
+ * https://www.drupal.org/node/897638
+ */
+
+.visuallyhidden.focusable:active,
+.visuallyhidden.focusable:focus {
+    clip: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    position: static;
+    width: auto;
+}
+
+/*
+ * Hide visually and from screen readers, but maintain layout
+ */
+
+.invisible {
+    visibility: hidden;
+}
+
+/*
+ * Clearfix: contain floats
+ *
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the
+ *    `contenteditable` attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements
+ *    that receive the `clearfix` class.
+ * 2. The use of `table` rather than `block` is only necessary if using
+ *    `:before` to contain the top-margins of child elements.
+ */
+
+.clearfix:before,
+.clearfix:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+/* ==========================================================================
+   EXAMPLE Media Queries for Responsive Design.
+   These examples override the primary ('mobile first') styles.
+   Modify as content requires.
+   ========================================================================== */
+
+@media only screen and (min-width: 35em) {
+    /* Style adjustments for viewports that meet the condition */
+}
+
+@media print,
+       (-webkit-min-device-pixel-ratio: 1.25),
+       (min-resolution: 1.25dppx),
+       (min-resolution: 120dpi) {
+    /* Style adjustments for high resolution devices */
+}
+
+/* ==========================================================================
+   Print styles.
+   Inlined to avoid the additional HTTP request:
+   http://www.phpied.com/delay-loading-your-print-css/
+   ========================================================================== */
+
+@media print {
+    *,
+    *:before,
+    *:after,
+    *:first-letter,
+    *:first-line {
+        background: transparent !important;
+        color: #000 !important; /* Black prints faster:
+                                   http://www.sanbeiji.com/archives/953 */
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    a,
+    a:visited {
+        text-decoration: underline;
+    }
+
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+
+    abbr[title]:after {
+        content: " (" attr(title) ")";
+    }
+
+    /*
+     * Don't show links that are fragment identifiers,
+     * or use the `javascript:` pseudo protocol
+     */
+
+    a[href^="#"]:after,
+    a[href^="javascript:"]:after {
+        content: "";
+    }
+
+    pre,
+    blockquote {
+        border: 1px solid #999;
+        page-break-inside: avoid;
+    }
+
+    /*
+     * Printing Tables:
+     * http://css-discuss.incutio.com/wiki/Printing_Tables
+     */
+
+    thead {
+        display: table-header-group;
+    }
+
+    tr,
+    img {
+        page-break-inside: avoid;
+    }
+
+    img {
+        max-width: 100% !important;
+    }
+
+    p,
+    h2,
+    h3 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    h2,
+    h3 {
+        page-break-after: avoid;
+    }
+}

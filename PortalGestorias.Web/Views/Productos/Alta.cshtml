@@ -1,0 +1,261 @@
+﻿@using System.Security.Claims
+@using PortalGestorias.Web.Controllers
+@using PortalGestorias.Web.Security
+@using PortalGestorias.Domain.Models
+
+@model PortalGestorias.Domain.Entities.Producto
+
+@{
+    ViewBag.Title = "John Deere - Sistema de Inventario ::: Producto";
+    @*<style type="text/css">
+        label {
+            text-align: left !important;
+        }
+    </style>*@
+
+    var viewOnly = ViewBag.ViewOnly != null && ViewBag.ViewOnly;
+    dynamic htmlAttributes = new { @class = "form-control" };
+    dynamic htmlAttributesMarca = new { @class = "form-control", data_val = "true", data_val_required = $"El campo Marca es obligatorio." };
+    dynamic htmlAttributesTipoModelo = new { @class = "form-control", data_val = "true", data_val_required = $"El campo Tipo es obligatorio." };
+    dynamic htmlAttributesAlmacen = new { @class = "form-control", data_val = "true", data_val_required = $"El campo Almacén es obligatorio." };
+    dynamic htmlAttributesModelo = new { @class = "form-control", data_val = "true", data_val_required = $"El campo Modelo es obligatorio." };
+    dynamic htmlAttributesUbicacion = new { @class = "form-control", data_val = "true", data_val_required = $"El campo Ubicación es obligatorio." };
+    dynamic htmlAttributesStockRoom = new { @class = "form-control", data_val = "true", data_val_required = $"El campo StockRoom es obligatorio." };
+
+
+    if (viewOnly)
+    {
+        htmlAttributes = new { @class = "form-control", disabled = "disabled" };
+        htmlAttributesMarca = new { @class = "form-control", disabled = "disabled", data_val = "true", data_val_required = $"El campo Marca es obligatorio." };
+        htmlAttributesTipoModelo = new { @class = "form-control", disabled = "disabled", data_val = "true", data_val_required = $"El campo Tipo es obligatorio." };
+        htmlAttributesAlmacen = new { @class = "form-control", disabled = "disabled", data_val = "true", data_val_required = $"El campo Almacén es obligatorio." };
+        htmlAttributesModelo = new { @class = "form-control", disabled = "disabled", data_val = "true", data_val_required = $"El campo Modelo es obligatorio." };
+        htmlAttributesUbicacion = new { @class = "form-control", disabled = "disabled", data_val = "true", data_val_required = $"El campo Ubicación es obligatorio." };
+        htmlAttributesStockRoom = new { @class = "form-control", disabled = "disabled", data_val = "true", data_val_required = $"El campo StockRoom es obligatorio." };
+
+    }
+    var user = User as ClaimsPrincipal;
+}
+
+@using (Html.BeginForm("Alta", "Productos", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken();
+
+            <div class="col-md-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb custom-breadcrumb">
+                    <li class="breadcrumb-item titulo1">@Html.ActionLink("SISTEMAS", "Index", "Home")</li>
+                    @*<li class="breadcrumb-item titulo1">@Html.ActionLink("MANTENIMIENTO PRODUCTOS", "Index", "Productos")</li>*@
+                    <li class="breadcrumb-item titulo1 active">ALTA PRODUCTO</li>
+                </ol>
+            </nav>
+        </div>
+
+        @*@Html.ValidationSummary(false, "", new { @class = "text-danger" })*@
+        @Html.ValidationSummary(true, "*** Por favor, revise los campos de entrada ***", new { @class = "text-danger col-md-offset-1" })
+        <div class="text-danger col-md-offset-1 " style="margin-bottom:20px">
+
+            @*@Html.Raw(ViewBag.MessageError)*@
+        </div>
+
+        
+
+        @Html.HiddenFor(model => model.Id)
+        <div class="form-horizontal col-md-12">
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Almacen.Nombre, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-1" })
+                <div class="col-md-2">
+                    @Html.DropDownList("IdAlmacen", (SelectList)ViewData["Almacen"], (object)htmlAttributesAlmacen)
+                    @Html.ValidationMessage("IdAlmacen", "", new { @class = "text-danger" })
+                </div>
+               <div class="mandatory col-md-1" style="max-width:5px !important">*</div>
+                @Html.Label("Departamento", htmlAttributes: new { @class = "control-label col-md-2" })<span class="mandatory">*</span>
+                <div class="col-md-2">
+                    @Html.DropDownList("IdStockRoom", (SelectList)ViewData["StockRoom"], (object)htmlAttributesStockRoom)
+                    @Html.ValidationMessage("IdStockRoom", "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+
+                @Html.LabelFor(model => model.Marca.Nombre, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-1" })
+                <div class="col-md-2">
+                    @Html.DropDownList("IdMarca", (SelectList)ViewData["Marca"], (object)htmlAttributesMarca)
+                    @Html.ValidationMessage("IdMarca", "", new { @class = "text-danger" })
+                </div>
+                <div class="mandatory col-md-1" style="max-width:5px !important">*</div>
+                @Html.LabelFor(model => model.Modelo, htmlAttributes: new { @class = "control-label col-md-2 " })<span class="mandatory">*</span>
+                <div class="col-md-2">
+                    @Html.DropDownList("IdModelo", (SelectList)ViewData["Modelo"], (object)htmlAttributesModelo)
+                    @Html.ValidationMessage("IdModelo", "", new { @class = "text-danger" })
+                </div>
+
+                @if (!viewOnly)
+                {
+                    @Html.ActionLinkAuthorize("Nuevo Modelo", "Create", "Modelos", user.GetAuthContext(DataOperation.Create, Controllers.Modelos), new { idAlmacen = Model.Almacen?.Id, idStockRoom = Model.Departamento?.Id, idUbicacion = Model.Ubicacion?.Id, idMarca = Model.Marca?.Id }, new { @class = "btn btn-jd-new ", onclick = "return fill();" })
+                }
+
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Ubicacion.Nombre, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-1" })
+                <div class="col-md-2">
+                    @Html.DropDownList("IdUbicacion", (SelectList)ViewData["Ubicacion"], (object)htmlAttributesUbicacion)
+                    @Html.ValidationMessage("IdUbicacion", "", new { @class = "text-danger" })
+                </div>
+                <div class="mandatory col-md-1" style="max-width:5px !important">*</div>
+                @Html.LabelFor(model => model.Modelo.TipoModelo, htmlAttributes: new { @class = "control-label col-md-2" })<span class="mandatory">*</span>
+                <div class="col-md-2">
+                    @Html.DropDownList("IdTipoModelo", (SelectList)ViewData["TipoModelo"], (object)htmlAttributesUbicacion)
+                    @Html.ValidationMessage("IdTipoModelo", "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.NumeroPedido, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-1" })
+                <div class="col-md-2">
+                    @Html.EditorFor(model => model.NumeroPedido, new { htmlAttributes })
+                    @Html.ValidationMessageFor(model => model.NumeroPedido, "", new { @class = "text-danger" })
+                </div>
+                               <div class="mandatory col-md-1" style="max-width:5px !important">*</div>
+                @Html.LabelFor(model => model.Cantidad, htmlAttributes: new { @class = "control-label col-md-2 " })<span class="mandatory">*</span>
+                <div class="col-md-2">
+                    @Html.EditorFor(model => model.Cantidad, new { htmlAttributes })
+                    @Html.ValidationMessageFor(model => model.Cantidad, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <div class="col-md-offset-3 col-md-10">
+                    @Html.ActionLink("Volver al listado", "Index", null, new { @class = "btn btn-default" })
+                    @if (viewOnly && Model.Activo && user.ResourceAccessValidation(DataOperation.Update, Controllers.Productos))
+                    {
+                        @Html.ActionLink("Editar", "Edit", new { id = Model.Id }, new { @class = "btn btn-jd-new" })
+                    }
+                    @if (!viewOnly)
+                    {
+                        <input type="submit" value="Mostrar Detalle" name="Mostrar" class="btn btn-jd-new" />
+
+                    }
+                </div>
+            </div>
+        </div>
+
+}
+
+
+
+    @Html.Partial("_Alta", (List<EntradaProducto>)ViewBag.AltaProducto)
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+
+    function gettoken() {
+        var token = '@Html.AntiForgeryToken()';
+        token = $(token).val();
+        return token;
+   }
+
+        $(document).ready(function () {
+
+            @*$('#Alta').click(function () {
+                alert("hh");
+                alert($("#altaForm").serialize());
+                $.ajax({
+                type: "POST",
+                    url: '@Html.Raw(Url.Action("ConfirmarAlta", "Productos"))',
+                    data: { 'form': $("#altaForm").serialize(), __RequestVerificationToken: gettoken()},
+                    //data: {,  'form': $("#altaForm").serialize() },
+                success: function (msg) {
+                    alert("Form Submitted: " + msg);
+                }
+            });
+            });*@
+            
+        });
+
+
+
+
+
+        $(document).on('change', ':file', function () {
+            var input = $(this),
+                numFiles = input.get(0).files ? input.get(0).files.length : 1,
+                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            input.trigger('fileselect', [numFiles, label]);
+        });
+
+      
+        $(document).on('change', '#IdMarca, #IdUbicacion, #IdAlmacen, #IdTipoModelo, #IdStockRoom, #IdModelo, #IdTipoModelo', function () {
+
+            var selectItem = $('#IdMarca').val();
+            var selectTipo = $('#IdTipoModelo').val();
+            var selectAlmacen = $('#IdAlmacen').val();
+            var selectModelo = $('#IdModelo').val();
+            var selectStockRoom = $('#IdStockRoom').val();
+            var selectUbicacion = $('#IdUbicacion').val();
+            var selectPedido = $('#NumeroPedido').val();
+            var selectCantidad = $('#Cantidad').val();
+
+            var url = '@Html.Raw(Url.Action("Create", "Productos", new { idMarca = "selectItem", idTipoModelo = "selectTipo", idModelo = "selectModelo" , idAlmacen = "selectAlmacen", idStockRoom = "selectStockRoom", idUbicacion = "selectUbicacion", NumeroPedido = "selectPedido", Cantidad = "selectCantidad"}))';
+
+            url = url.replace("selectItem", selectItem);
+            url = url.replace("selectTipo", selectTipo);
+            url = url.replace("selectModelo", selectModelo);
+            url = url.replace("selectStockRoom", selectStockRoom);
+            url = url.replace("selectAlmacen", selectAlmacen);
+            url = url.replace("selectUbicacion", selectUbicacion);
+            url = url.replace("selectPedido", selectPedido);
+            url = url.replace("selectCantidad", selectCantidad);
+            window.location = url;
+
+        });
+
+        function fill()
+        {
+            var selectItem = $('#IdMarca').val();
+            var selectTipo = $('#IdTipoModelo').val();
+            var selectAlmacen = $('#IdAlmacen').val();
+            var selectModelo = $('#IdModelo').val();
+            var selectStockRoom = $('#IdStockRoom').val();
+            var selectUbicacion = $('#IdUbicacion').val();
+
+
+         var url = '@Html.Raw(Url.Action("Create", "Modelos", new { idMarca = "selectItem", idTipo = "selectTipo", idModelo = "selectModelo" , idAlmacen = "selectAlmacen", idStockRoom = "selectStockRoom", idUbicacion = "selectUbicacion", redirectToProductos = true}))';
+
+            url = url.replace("selectItem", selectItem);
+            url = url.replace("selectTipo", selectTipo);
+            url = url.replace("selectModelo", selectModelo);
+            url = url.replace("selectStockRoom", selectStockRoom);
+            url = url.replace("selectAlmacen", selectAlmacen);
+            url = url.replace("selectUbicacion", selectUbicacion);
+            window.location = url;
+            return false;
+        }
+
+        $(function () {
+
+            $(':file').on('fileselect', function (event, numFiles, label) {
+
+                var input = $(this).parents('.input-group-btn').find(':text'),
+                    log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+                if (input.length) {
+                    input.val(log);
+                }
+            });
+
+            $('.edit-mode').show();
+
+            $('input[type="submit"].btn').on('dblclick',
+                function (event) {
+                    event.preventDefault();
+                });
+        });
+
+         
+    </script>
+}
